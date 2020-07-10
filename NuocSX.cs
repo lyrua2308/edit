@@ -133,6 +133,21 @@ namespace hoa_don_nhap
         private void btnThoat_Click(object sender, EventArgs e)
         {
             this.Close();
-        }        
-}
+        }
+
+        private void txtTenSX_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gridviewSX_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

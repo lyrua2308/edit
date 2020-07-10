@@ -17,7 +17,8 @@ namespace hoa_don_nhap
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new DangNhap());
-            Application.Run(new FrmDMBinhGa());
+            Application.Run(new DangNhap());
+            //Application.Run(new frmmain());
         }
     }
 }

@@ -53,7 +53,7 @@ namespace hoa_don_nhap
             private void buttonxoa_Click(object sender, EventArgs e)
             {
                 string sql = "delete from khach_hang where makhach=N'" + textBoxmakh.Text + "'";
-                DAO.RunSql(sql);
+                DAO.RunSqlDel(sql);
                 loaddata();
 
             }
@@ -119,5 +119,17 @@ namespace hoa_don_nhap
                     DAO.CloseConnection();
                 }
             }
+
+        private void buttonthoat_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
         }
+
+        private void textBoxsodienthoai_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (((e.KeyChar >= '0') && (e.KeyChar <= '9')) || (Convert.ToInt32(e.KeyChar) == 8))
+                e.Handled = false;
+            else e.Handled = true;
+        }
+    }
 }

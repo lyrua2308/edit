@@ -46,6 +46,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaoCaoDanhSachHDN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaoCaoDanhSachHDN.Designer.cs">
+      <DependentUpon>BaoCaoDanhSachHDN.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoDoanhThu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaoCaoDoanhThu.Designer.cs">
+      <DependentUpon>BaoCaoDoanhThu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoKhachHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaoCaoKhachHang.Designer.cs">
+      <DependentUpon>BaoCaoKhachHang.cs</DependentUpon>
+    </Compile>
     <Compile Include="CaLam.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,12 +137,6 @@
     <Compile Include="Loaics.Designer.cs">
       <DependentUpon>Loaics.cs</DependentUpon>
     </Compile>
-    <Compile Include="MaKhoiLuong.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MaKhoiLuong.Designer.cs">
-      <DependentUpon>MaKhoiLuong.cs</DependentUpon>
-    </Compile>
     <Compile Include="Mau.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,6 +163,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BaoCaoDanhSachHDN.resx">
+      <DependentUpon>BaoCaoDanhSachHDN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaoCaoDoanhThu.resx">
+      <DependentUpon>BaoCaoDoanhThu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaoCaoKhachHang.resx">
+      <DependentUpon>BaoCaoKhachHang.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CaLam.resx">
       <DependentUpon>CaLam.cs</DependentUpon>
     </EmbeddedResource>
@@ -188,9 +209,6 @@
     <EmbeddedResource Include="Loaics.resx">
       <DependentUpon>Loaics.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MaKhoiLuong.resx">
-      <DependentUpon>MaKhoiLuong.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Mau.resx">
       <DependentUpon>Mau.cs</DependentUpon>
     </EmbeddedResource>
@@ -211,6 +229,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -253,6 +272,105 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\writing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\center-alignment.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\close %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\center-alignment1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\writing1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\television.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dat_gioi_han_so_lan_dang_nhap_sai_bg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Capture.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Capture.PNG1.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Capture.PNG11.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Capture.PNG12.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-login-page-on-background-vector-5030827.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dn.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\oo.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\oo1.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\11111.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ly.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\11.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\km.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\k111.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\km1.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\main.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\105662492_328254358171742_6812692417750208205_n.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\105662492_328254358171742_6812692417750208205_n1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mail.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bgr.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dang nhap 1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sự lựa chọn số 1.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

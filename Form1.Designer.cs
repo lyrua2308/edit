@@ -47,12 +47,6 @@
             this.lblNgaynhap = new System.Windows.Forms.Label();
             this.lblSoHD = new System.Windows.Forms.Label();
             this.grbThongtinmathang = new System.Windows.Forms.GroupBox();
-            this.btnBoqua = new System.Windows.Forms.Button();
-            this.btnDong = new System.Windows.Forms.Button();
-            this.btnInhoadon = new System.Windows.Forms.Button();
-            this.btnHuy = new System.Windows.Forms.Button();
-            this.btnLuu = new System.Windows.Forms.Button();
-            this.btnThemmoi = new System.Windows.Forms.Button();
             this.DataGridView_hdn = new System.Windows.Forms.DataGridView();
             this.sohdn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mabinh = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -83,9 +77,16 @@
             this.lblNoidung12 = new System.Windows.Forms.Label();
             this.btnHienthi = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.btnDong = new System.Windows.Forms.Button();
+            this.btnInhoadon = new System.Windows.Forms.Button();
+            this.btnHuy = new System.Windows.Forms.Button();
+            this.btnLuu = new System.Windows.Forms.Button();
+            this.btnThemmoi = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.grbThongtinchung.SuspendLayout();
             this.grbThongtinmathang.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView_hdn)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // grbThongtinchung
@@ -106,7 +107,7 @@
             this.grbThongtinchung.Controls.Add(this.lblMaNCC);
             this.grbThongtinchung.Controls.Add(this.lblNgaynhap);
             this.grbThongtinchung.Controls.Add(this.lblSoHD);
-            this.grbThongtinchung.Location = new System.Drawing.Point(28, 45);
+            this.grbThongtinchung.Location = new System.Drawing.Point(28, 65);
             this.grbThongtinchung.Margin = new System.Windows.Forms.Padding(4);
             this.grbThongtinchung.Name = "grbThongtinchung";
             this.grbThongtinchung.Padding = new System.Windows.Forms.Padding(4);
@@ -271,7 +272,6 @@
             // 
             // grbThongtinmathang
             // 
-            this.grbThongtinmathang.Controls.Add(this.btnBoqua);
             this.grbThongtinmathang.Controls.Add(this.btnDong);
             this.grbThongtinmathang.Controls.Add(this.btnInhoadon);
             this.grbThongtinmathang.Controls.Add(this.btnHuy);
@@ -293,7 +293,7 @@
             this.grbThongtinmathang.Controls.Add(this.lblDongia);
             this.grbThongtinmathang.Controls.Add(this.lblTenbinh);
             this.grbThongtinmathang.Controls.Add(this.lblMabinh);
-            this.grbThongtinmathang.Location = new System.Drawing.Point(28, 230);
+            this.grbThongtinmathang.Location = new System.Drawing.Point(28, 245);
             this.grbThongtinmathang.Margin = new System.Windows.Forms.Padding(4);
             this.grbThongtinmathang.Name = "grbThongtinmathang";
             this.grbThongtinmathang.Padding = new System.Windows.Forms.Padding(4);
@@ -302,102 +302,6 @@
             this.grbThongtinmathang.TabStop = false;
             this.grbThongtinmathang.Text = "Thông tin các mặt hàng";
             this.grbThongtinmathang.Enter += new System.EventHandler(this.grbThongtinmathang_Enter);
-            // 
-            // btnBoqua
-            // 
-            this.btnBoqua.BackColor = System.Drawing.SystemColors.Window;
-            this.btnBoqua.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBoqua.ForeColor = System.Drawing.Color.PaleVioletRed;
-            this.btnBoqua.Image = ((System.Drawing.Image)(resources.GetObject("btnBoqua.Image")));
-            this.btnBoqua.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBoqua.Location = new System.Drawing.Point(663, 306);
-            this.btnBoqua.Margin = new System.Windows.Forms.Padding(4);
-            this.btnBoqua.Name = "btnBoqua";
-            this.btnBoqua.Size = new System.Drawing.Size(155, 47);
-            this.btnBoqua.TabIndex = 108;
-            this.btnBoqua.Text = "Bỏ qua";
-            this.btnBoqua.UseVisualStyleBackColor = false;
-            this.btnBoqua.Click += new System.EventHandler(this.btnBoqua_Click);
-            // 
-            // btnDong
-            // 
-            this.btnDong.BackColor = System.Drawing.SystemColors.Window;
-            this.btnDong.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDong.ForeColor = System.Drawing.Color.PaleVioletRed;
-            this.btnDong.Image = ((System.Drawing.Image)(resources.GetObject("btnDong.Image")));
-            this.btnDong.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDong.Location = new System.Drawing.Point(825, 306);
-            this.btnDong.Margin = new System.Windows.Forms.Padding(4);
-            this.btnDong.Name = "btnDong";
-            this.btnDong.Size = new System.Drawing.Size(149, 47);
-            this.btnDong.TabIndex = 18;
-            this.btnDong.Text = "&Đóng";
-            this.btnDong.UseVisualStyleBackColor = false;
-            this.btnDong.Click += new System.EventHandler(this.btnDong_Click);
-            // 
-            // btnInhoadon
-            // 
-            this.btnInhoadon.BackColor = System.Drawing.SystemColors.Window;
-            this.btnInhoadon.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnInhoadon.ForeColor = System.Drawing.Color.PaleVioletRed;
-            this.btnInhoadon.Image = ((System.Drawing.Image)(resources.GetObject("btnInhoadon.Image")));
-            this.btnInhoadon.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnInhoadon.Location = new System.Drawing.Point(505, 305);
-            this.btnInhoadon.Margin = new System.Windows.Forms.Padding(4);
-            this.btnInhoadon.Name = "btnInhoadon";
-            this.btnInhoadon.Size = new System.Drawing.Size(149, 47);
-            this.btnInhoadon.TabIndex = 17;
-            this.btnInhoadon.Text = " &In hoá đơn";
-            this.btnInhoadon.UseVisualStyleBackColor = false;
-            this.btnInhoadon.Click += new System.EventHandler(this.btnInhoadon_Click);
-            // 
-            // btnHuy
-            // 
-            this.btnHuy.BackColor = System.Drawing.SystemColors.Window;
-            this.btnHuy.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHuy.ForeColor = System.Drawing.Color.PaleVioletRed;
-            this.btnHuy.Image = ((System.Drawing.Image)(resources.GetObject("btnHuy.Image")));
-            this.btnHuy.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHuy.Location = new System.Drawing.Point(349, 306);
-            this.btnHuy.Margin = new System.Windows.Forms.Padding(4);
-            this.btnHuy.Name = "btnHuy";
-            this.btnHuy.Size = new System.Drawing.Size(148, 47);
-            this.btnHuy.TabIndex = 16;
-            this.btnHuy.Text = "   &Huỷ hoá đơn";
-            this.btnHuy.UseVisualStyleBackColor = false;
-            this.btnHuy.Click += new System.EventHandler(this.btnHuy_Click);
-            // 
-            // btnLuu
-            // 
-            this.btnLuu.BackColor = System.Drawing.SystemColors.Window;
-            this.btnLuu.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLuu.ForeColor = System.Drawing.Color.PaleVioletRed;
-            this.btnLuu.Image = ((System.Drawing.Image)(resources.GetObject("btnLuu.Image")));
-            this.btnLuu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLuu.Location = new System.Drawing.Point(180, 305);
-            this.btnLuu.Margin = new System.Windows.Forms.Padding(4);
-            this.btnLuu.Name = "btnLuu";
-            this.btnLuu.Size = new System.Drawing.Size(156, 47);
-            this.btnLuu.TabIndex = 15;
-            this.btnLuu.Text = "  &Lưu hoá đơn";
-            this.btnLuu.UseVisualStyleBackColor = false;
-            this.btnLuu.Click += new System.EventHandler(this.btnLuu_Click);
-            // 
-            // btnThemmoi
-            // 
-            this.btnThemmoi.BackColor = System.Drawing.SystemColors.Window;
-            this.btnThemmoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThemmoi.ForeColor = System.Drawing.Color.PaleVioletRed;
-            this.btnThemmoi.Image = ((System.Drawing.Image)(resources.GetObject("btnThemmoi.Image")));
-            this.btnThemmoi.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnThemmoi.Location = new System.Drawing.Point(19, 306);
-            this.btnThemmoi.Margin = new System.Windows.Forms.Padding(4);
-            this.btnThemmoi.Name = "btnThemmoi";
-            this.btnThemmoi.Size = new System.Drawing.Size(159, 47);
-            this.btnThemmoi.TabIndex = 14;
-            this.btnThemmoi.Text = "   &Thêm hoá đơn";
-            this.btnThemmoi.UseVisualStyleBackColor = false;
-            this.btnThemmoi.Click += new System.EventHandler(this.btnThemmoi_Click);
             // 
             // DataGridView_hdn
             // 
@@ -510,6 +414,7 @@
             this.txtTongtien.Name = "txtTongtien";
             this.txtTongtien.Size = new System.Drawing.Size(193, 22);
             this.txtTongtien.TabIndex = 9;
+            this.txtTongtien.TextChanged += new System.EventHandler(this.txtTongtien_TextChanged);
             // 
             // lblBangchu
             // 
@@ -651,21 +556,23 @@
             // 
             // bt_timkiem
             // 
-            this.bt_timkiem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_timkiem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.bt_timkiem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_timkiem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.bt_timkiem.Location = new System.Drawing.Point(444, 625);
             this.bt_timkiem.Name = "bt_timkiem";
             this.bt_timkiem.Size = new System.Drawing.Size(127, 41);
             this.bt_timkiem.TabIndex = 69;
             this.bt_timkiem.Text = "Tìm kiếm";
-            this.bt_timkiem.UseVisualStyleBackColor = true;
+            this.bt_timkiem.UseVisualStyleBackColor = false;
             this.bt_timkiem.Click += new System.EventHandler(this.bt_timkiem_Click);
             // 
             // lblNoidung12
             // 
             this.lblNoidung12.AutoSize = true;
             this.lblNoidung12.Font = new System.Drawing.Font("Arial", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNoidung12.ForeColor = System.Drawing.Color.PaleVioletRed;
-            this.lblNoidung12.Location = new System.Drawing.Point(381, 9);
+            this.lblNoidung12.ForeColor = System.Drawing.Color.White;
+            this.lblNoidung12.Location = new System.Drawing.Point(374, 11);
             this.lblNoidung12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNoidung12.Name = "lblNoidung12";
             this.lblNoidung12.Size = new System.Drawing.Size(289, 30);
@@ -674,34 +581,128 @@
             // 
             // btnHienthi
             // 
-            this.btnHienthi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHienthi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.btnHienthi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHienthi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.btnHienthi.Location = new System.Drawing.Point(751, 625);
             this.btnHienthi.Name = "btnHienthi";
-            this.btnHienthi.Size = new System.Drawing.Size(105, 41);
+            this.btnHienthi.Size = new System.Drawing.Size(115, 41);
             this.btnHienthi.TabIndex = 109;
             this.btnHienthi.Text = "Hiển thị";
-            this.btnHienthi.UseVisualStyleBackColor = true;
+            this.btnHienthi.UseVisualStyleBackColor = false;
             this.btnHienthi.Click += new System.EventHandler(this.btnHienthi_Click);
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.button1.Location = new System.Drawing.Point(161, 625);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(127, 41);
             this.button1.TabIndex = 110;
             this.button1.Text = "Bắt đầu";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnDong
+            // 
+            this.btnDong.BackColor = System.Drawing.SystemColors.Window;
+            this.btnDong.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDong.ForeColor = System.Drawing.Color.PaleVioletRed;
+            this.btnDong.Image = ((System.Drawing.Image)(resources.GetObject("btnDong.Image")));
+            this.btnDong.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDong.Location = new System.Drawing.Point(825, 306);
+            this.btnDong.Margin = new System.Windows.Forms.Padding(4);
+            this.btnDong.Name = "btnDong";
+            this.btnDong.Size = new System.Drawing.Size(149, 47);
+            this.btnDong.TabIndex = 18;
+            this.btnDong.Text = "Thoát";
+            this.btnDong.UseVisualStyleBackColor = false;
+            this.btnDong.Click += new System.EventHandler(this.btnDong_Click);
+            // 
+            // btnInhoadon
+            // 
+            this.btnInhoadon.BackColor = System.Drawing.SystemColors.Window;
+            this.btnInhoadon.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInhoadon.ForeColor = System.Drawing.Color.PaleVioletRed;
+            this.btnInhoadon.Image = ((System.Drawing.Image)(resources.GetObject("btnInhoadon.Image")));
+            this.btnInhoadon.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnInhoadon.Location = new System.Drawing.Point(607, 306);
+            this.btnInhoadon.Margin = new System.Windows.Forms.Padding(4);
+            this.btnInhoadon.Name = "btnInhoadon";
+            this.btnInhoadon.Size = new System.Drawing.Size(149, 47);
+            this.btnInhoadon.TabIndex = 17;
+            this.btnInhoadon.Text = " In hoá đơn";
+            this.btnInhoadon.UseVisualStyleBackColor = false;
+            this.btnInhoadon.Click += new System.EventHandler(this.btnInhoadon_Click);
+            // 
+            // btnHuy
+            // 
+            this.btnHuy.BackColor = System.Drawing.SystemColors.Window;
+            this.btnHuy.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHuy.ForeColor = System.Drawing.Color.PaleVioletRed;
+            this.btnHuy.Image = ((System.Drawing.Image)(resources.GetObject("btnHuy.Image")));
+            this.btnHuy.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHuy.Location = new System.Drawing.Point(395, 305);
+            this.btnHuy.Margin = new System.Windows.Forms.Padding(4);
+            this.btnHuy.Name = "btnHuy";
+            this.btnHuy.Size = new System.Drawing.Size(148, 47);
+            this.btnHuy.TabIndex = 16;
+            this.btnHuy.Text = "   Huỷ hoá đơn";
+            this.btnHuy.UseVisualStyleBackColor = false;
+            this.btnHuy.Click += new System.EventHandler(this.btnHuy_Click);
+            // 
+            // btnLuu
+            // 
+            this.btnLuu.BackColor = System.Drawing.SystemColors.Window;
+            this.btnLuu.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLuu.ForeColor = System.Drawing.Color.PaleVioletRed;
+            this.btnLuu.Image = ((System.Drawing.Image)(resources.GetObject("btnLuu.Image")));
+            this.btnLuu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLuu.Location = new System.Drawing.Point(197, 305);
+            this.btnLuu.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLuu.Name = "btnLuu";
+            this.btnLuu.Size = new System.Drawing.Size(156, 47);
+            this.btnLuu.TabIndex = 15;
+            this.btnLuu.Text = "  Lưu hoá đơn";
+            this.btnLuu.UseVisualStyleBackColor = false;
+            this.btnLuu.Click += new System.EventHandler(this.btnLuu_Click);
+            // 
+            // btnThemmoi
+            // 
+            this.btnThemmoi.BackColor = System.Drawing.SystemColors.Window;
+            this.btnThemmoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThemmoi.ForeColor = System.Drawing.Color.PaleVioletRed;
+            this.btnThemmoi.Image = ((System.Drawing.Image)(resources.GetObject("btnThemmoi.Image")));
+            this.btnThemmoi.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnThemmoi.Location = new System.Drawing.Point(8, 305);
+            this.btnThemmoi.Margin = new System.Windows.Forms.Padding(4);
+            this.btnThemmoi.Name = "btnThemmoi";
+            this.btnThemmoi.Size = new System.Drawing.Size(159, 47);
+            this.btnThemmoi.TabIndex = 14;
+            this.btnThemmoi.Text = "   Thêm hoá đơn";
+            this.btnThemmoi.UseVisualStyleBackColor = false;
+            this.btnThemmoi.Click += new System.EventHandler(this.btnThemmoi_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Teal;
+            this.panel1.Controls.Add(this.lblNoidung12);
+            this.panel1.Location = new System.Drawing.Point(-3, -2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1074, 59);
+            this.panel1.TabIndex = 111;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.PaleTurquoise;
             this.ClientSize = new System.Drawing.Size(1069, 726);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnHienthi);
-            this.Controls.Add(this.lblNoidung12);
             this.Controls.Add(this.bt_timkiem);
             this.Controls.Add(this.grbThongtinmathang);
             this.Controls.Add(this.grbThongtinchung);
@@ -714,8 +715,9 @@
             this.grbThongtinmathang.ResumeLayout(false);
             this.grbThongtinmathang.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView_hdn)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -739,7 +741,6 @@
         private System.Windows.Forms.Label lblNgaynhap;
         private System.Windows.Forms.Label lblSoHD;
         private System.Windows.Forms.GroupBox grbThongtinmathang;
-        private System.Windows.Forms.Button btnBoqua;
         private System.Windows.Forms.Button btnDong;
         private System.Windows.Forms.Button btnInhoadon;
         private System.Windows.Forms.Button btnHuy;
@@ -775,6 +776,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn thanhtien;
         private System.Windows.Forms.Button btnHienthi;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

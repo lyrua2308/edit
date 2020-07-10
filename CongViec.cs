@@ -52,14 +52,14 @@ namespace hoa_don_nhap
         private void buttonsua_Click(object sender, EventArgs e)
         {
             string sql = "update cong_viec set tencv=N'" + textBoxtencv.Text + "'where macv=N'" + textBoxmacv.Text + "'";
-            DAO.RunSql(sql);
+            DAO.RunSqlDel(sql);
             loaddata();
         }
 
         private void buttonxoa_Click(object sender, EventArgs e)
         {
             string sql = "delete from cong_viec where macv=N'" + textBoxmacv.Text + "'";
-            DAO.RunSqlDel(sql);
+            DAO.RunSql(sql);
             loaddata();
         }
 
@@ -90,6 +90,14 @@ namespace hoa_don_nhap
             }
         }
 
+        private void buttonthoat_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

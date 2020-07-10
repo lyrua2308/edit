@@ -29,10 +29,24 @@ namespace hoa_don_nhap
             dataGridViewNhanVien.DataSource = table;
         }
 
+      
+
+       
 
 
+        private void buttonthoat_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
-        private void frmNhanVien_Load(object sender, EventArgs e)
+        
+
+        private void buttonthoat_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void NhanVien_Load(object sender, EventArgs e)
         {
             loatdata();
             string sql = "select * from Cong_viec";
@@ -40,12 +54,12 @@ namespace hoa_don_nhap
 
             string sql1 = "select * from ca_lam";
             DAO.fillDataToCombo(sql1, comboBoxmaca, "maca", "tenca");
-            string sql2 = "select * from Nhan_vien";
-            DAO.fillDataToCombo(sql2, comboBoxgioitinh, "manv", "gioitinh");
+            string sql2 = "select distinct gioitinh from Nhan_vien";
+            DAO.fillDataToCombo(sql2, comboBoxgioitinh, "gioitinh", "gioitinh");
 
         }
 
-        private void dataGridViewNhanVien_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridViewNhanVien_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             textBoxMaNV.Text = dataGridViewNhanVien.CurrentRow.Cells["MaNV"].Value.ToString();
             textBoxTenNV.Text = dataGridViewNhanVien.CurrentRow.Cells["TenNV"].Value.ToString();
@@ -56,27 +70,10 @@ namespace hoa_don_nhap
             comboBoxmacongviec.Text = dataGridViewNhanVien.CurrentRow.Cells["macv"].Value.ToString();
             maskedTextBoxngaysinh.Text = dataGridViewNhanVien.CurrentRow.Cells["ngaysinh"].Value.ToString();
             textBoxMaNV.Enabled = false;
-        }
-
-        private void buttonsua_Click(object sender, EventArgs e)
-        {
-            string sql = "update Nhan_Vien set tennv=N'" + textBoxTenNV.Text + "',diachi=N'" + textBoxdiachi.Text + "',gioitinh='" + comboBoxgioitinh.SelectedValue
-                + "',ngaysinh='" + maskedTextBoxngaysinh.Text + "',dienthoai='" + textBoxdienthoai.Text + "',maca='" + comboBoxmaca.SelectedValue + "',macv='"
-                + comboBoxmacongviec.SelectedValue +
-                "' where maNv=N'" + textBoxMaNV.Text + "'";
-            //MessageBox.Show(sql);
-            //DAO.openconnectionstring();
-            //SqlCommand cmd = new SqlCommand(sql, DAO.conn);
-            //cmd.ExecuteNonQuery();
-            //DAO.closeconnectionstring();
-            DAO.RunSqlDel(sql);
-            loatdata();
-
-
 
         }
 
-        private void buttonthem_Click(object sender, EventArgs e)
+        private void buttonthem_Click_1(object sender, EventArgs e)
         {
             textBoxMaNV.Enabled = true;
             textBoxdienthoai.Text = "";
@@ -89,50 +86,28 @@ namespace hoa_don_nhap
             comboBoxgioitinh.SelectedValue = "";
         }
 
-        private void buttonxoa_Click(object sender, EventArgs e)
+        private void buttonsua_Click_1(object sender, EventArgs e)
         {
+            string sql = "update Nhan_Vien set tennv=N'" + textBoxTenNV.Text + "',diachi=N'" + textBoxdiachi.Text + "',gioitinh=N'" + comboBoxgioitinh.SelectedValue
+               + "',ngaysinh='" + maskedTextBoxngaysinh.Text + "',dienthoai='" + textBoxdienthoai.Text + "',maca='" + comboBoxmaca.SelectedValue + "',macv='"
+               + comboBoxmacongviec.SelectedValue +
+               "' where manv=N'" + textBoxMaNV.Text + "'";
+            
+            DAO.RunSql(sql);
+            loatdata();
+        }
+
+        private void buttonxoa_Click_1(object sender, EventArgs e)
+        {
+
             string sql = "delete from nhan_vien where manv='" + textBoxMaNV.Text + "'";
-
-            //MessageBox.Show(sql);
-            //DAO.openconnectionstring();
-            //SqlCommand cmd = new SqlCommand(sql, DAO.conn);
-            //cmd.ExecuteNonQuery();
-            // DAO.closeconnectionstring();
-
-            // DAO.checkxoa(sql);
-            string sqlcheck = "select * from nhan_vien join Hoa_don_ban on Hoa_don_ban.MaNV=Nhan_Vien.MaNV join hoa_don_nhap" +
-                "on hoa_don_nhap.manv=nhan_vien.manv where nhan_vien.manv='" + textBoxMaNV.Text.Trim() + "'";
-            DAO.OpenConnection();
-
-            if (DAO.CheckKey(sqlcheck))
-            {
-                MessageBox.Show("không thể xóa");
-                DAO.CloseConnection();
-
-                return;
-            }
-            else
-            {
-                SqlCommand cmd = new SqlCommand();
-
-                cmd.CommandText = sql;
-                cmd.Connection = DAO.Conn;
-                cmd.ExecuteNonQuery();
-
-                loatdata();
-
-                DAO.CloseConnection();
-            }
-
-
+            DAO.RunSqlDel(sql);
+            loatdata();
+               
+            
         }
 
-        private void buttonthoat_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void buttonluu_Click(object sender, EventArgs e)
+        private void buttonluu_Click_1(object sender, EventArgs e)
         {
             if (textBoxdiachi.Text == "")
             {
@@ -210,9 +185,14 @@ namespace hoa_don_nhap
                 DAO.CloseConnection();
             }
 
+
         }
 
-
-
+        private void textBoxdienthoai_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (((e.KeyChar >= '0') && (e.KeyChar <= '9')) || (Convert.ToInt32(e.KeyChar) == 8))
+                e.Handled = false;
+            else e.Handled = true;
+        }
     }
 }

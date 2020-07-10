@@ -20,7 +20,7 @@ namespace hoa_don_nhap
         {
             Conn = new SqlConnection();
             Conn.ConnectionString = ConnectionString;
-            if (Conn.State == System.Data.ConnectionState.Closed) ;
+            if (Conn.State == System.Data.ConnectionState.Closed) 
             try
             {
                 Conn.Open();
@@ -67,6 +67,7 @@ namespace hoa_don_nhap
         }
         public static void RunSql(string sql)
         {
+            DAO.OpenConnection();
             SqlCommand cmd;		                // Khai báo đối tượng SqlCommand
             cmd = new SqlCommand();	         // Khởi tạo đối tượng
             cmd.Connection = DAO.Conn;	  // Gán kết nối
@@ -81,9 +82,11 @@ namespace hoa_don_nhap
             }
             cmd.Dispose();
             cmd = null;
+            DAO.CloseConnection();
         }
         public static void RunSqlDel(string sql)
         {
+            DAO.OpenConnection();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = DAO.Conn;
             cmd.CommandText = sql;
@@ -98,6 +101,7 @@ MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
             cmd.Dispose();
             cmd = null;
+            DAO.CloseConnection();
         }
         public static void FillCombo(string sql, ComboBox cbo, string DisplayField, string valuesField)
         {
@@ -144,6 +148,19 @@ MessageBoxButtons.OK, MessageBoxIcon.Stop);
             myAdater.Fill(table);
             dataGridView.DataSource = table;
             DAO.CloseConnection();
+        }
+        public static SqlDataReader getDataReader(string sql)
+
+        {
+
+            OpenConnection();
+
+            SqlCommand com = new SqlCommand(sql,Conn);
+
+            SqlDataReader dr = com.ExecuteReader();
+
+            return dr;
+
         }
         public static bool IsDate(string d)
         {

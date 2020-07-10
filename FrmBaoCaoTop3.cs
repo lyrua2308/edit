@@ -20,23 +20,53 @@ namespace hoa_don_nhap
         {
             InitializeComponent();
         }
+        private void goiy()
+        {
+            string sql = "select distinct tennv from nhan_vien where tennv like '%"+combo_manv.Text+"%'";
 
+
+
+            SqlDataReader reader = DAO.getDataReader(sql);
+
+            AutoCompleteStringCollection auto = new AutoCompleteStringCollection();
+
+            if (reader != null)
+
+            {
+
+                while (reader.Read())
+
+                {
+
+                    auto.Add(reader["tennv"].ToString());
+
+                }
+
+            }
+            combo_manv.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+
+            combo_manv.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+            combo_manv.AutoCompleteCustomSource = auto;
+
+            reader.Close();
+
+        }
         private void FrmBaoCaoTop3_Load(object sender, EventArgs e)
         {
             DAO.OpenConnection();
-            combo_manv.Enabled = false;
-            bt_batdau.Enabled = true;
-            bt_thoat.Enabled = true;
-            bt_inbaocao.Enabled = false;
-            bt_thongke.Enabled = false;
+            goiy();
+            string sql = "SELECT c.MaNV,TenNV,a.Mabinh,d.Tenbinh, sum(a.Soluong) as soluong from " +
+                "Chi_tiet_hoa_don_ban as a join Hoa_don_ban as b on a.SoHDB = b.SoHDB join " +
+                "Nhan_vien  as c on c.MaNV = b.MaNV join DM_Binh_ga as d on " +
+                "d.Mabinh = a.Mabinh group by tenbinh ,c.MaNV, TenNV, a.mabinh, tenbinh order by soluong ASC";
+            DAO.loatdata(sql, dataGridView1);
             DAO.FillCombo("SELECT MaNV, TenNV FROM nhan_vien", combo_manv, "TenNV", "MaNV");
             DAO.CloseConnection();
         }
         private void bt_batdau_Click_1(object sender, EventArgs e)
         {
-            combo_manv.Enabled = true;
-            bt_inbaocao.Enabled = true;
-            bt_thongke.Enabled = true;
+            
             combo_manv.Text = "";
             combo_manv.Focus();
 
@@ -53,7 +83,11 @@ namespace hoa_don_nhap
                 return;
             }
             string sql;
-            sql= "SELECT TOP 3 c.MaNV,TenNV,a.Mabinh,d.Tenbinh, sum(a.Soluong) as soluong from Chi_tiet_hoa_don_ban as a join Hoa_don_ban as b on a.SoHDB = b.SoHDB join Nhan_vien  as c on c.MaNV = b.MaNV join DM_Binh_ga as d on d.Mabinh = a.Mabinh where c.manv = '"+combo_manv.SelectedValue.ToString()+"' group by tenbinh ,c.MaNV, TenNV, a.mabinh, tenbinh order by soluong DESC";
+            sql= "SELECT TOP 3 c.MaNV,TenNV,a.Mabinh,d.Tenbinh, sum(a.Soluong) as soluong from " +
+                "Chi_tiet_hoa_don_ban as a join Hoa_don_ban as b on a.SoHDB = b.SoHDB join " +
+                "Nhan_vien  as c on c.MaNV = b.MaNV join DM_Binh_ga as d on " +
+                "d.Mabinh = a.Mabinh where c.manv = '"+combo_manv.SelectedValue.ToString()+
+                "' group by tenbinh ,c.MaNV, TenNV, a.mabinh, tenbinh order by soluong ASC";
             SqlDataAdapter myAdapter = new SqlDataAdapter(sql, DAO.Conn);
             DataTable sanpham = new DataTable();
             myAdapter.Fill(sanpham);
@@ -107,7 +141,7 @@ namespace hoa_don_nhap
             exRange.Range["C2:G2"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
             exRange.Range["C2:G2"].Value = "Báo cáo top 3 sản phẩm được bán ít nhất theo nhân viên ";
 
-            sql = "SELECT TOP 3 c.MaNV,TenNV,a.Mabinh,d.Tenbinh, sum(a.Soluong) as soluong from Chi_tiet_hoa_don_ban as a join Hoa_don_ban as b on a.SoHDB = b.SoHDB join Nhan_vien  as c on c.MaNV = b.MaNV join DM_Binh_ga as d on d.Mabinh = a.Mabinh where c.manv = '" + combo_manv.SelectedValue.ToString() + "' group by tenbinh ,c.MaNV, TenNV, a.mabinh, tenbinh order by soluong DESC";
+            sql = "SELECT TOP 3 c.MaNV,TenNV,a.Mabinh,d.Tenbinh, sum(a.Soluong) as soluong from Chi_tiet_hoa_don_ban as a join Hoa_don_ban as b on a.SoHDB = b.SoHDB join Nhan_vien  as c on c.MaNV = b.MaNV join DM_Binh_ga as d on d.Mabinh = a.Mabinh where c.manv = '" + combo_manv.SelectedValue.ToString() + "' group by tenbinh ,c.MaNV, TenNV, a.mabinh, tenbinh order by soluong ASC";
 
 
 
@@ -139,10 +173,16 @@ namespace hoa_don_nhap
             }
 
             exRange = exSheet.Cells[2][hang + 8];
-            exRange.Range["D1:F1"].MergeCells = true;
-            exRange.Range["D1:F1"].Font.Italic = true;
-            exRange.Range["D1:F1"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
-            exRange.Range["D1:F1"].Value = "Hà Nội, Ngày " + DateTime.Now.ToShortDateString();
+            exRange.Range["D4:F4"].MergeCells = true;
+            exRange.Range["D4:F4"].Font.Italic = true;
+            exRange.Range["D4:F4"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
+            exRange.Range["D4:F4"].Value = "Hà Nội, Ngày " + DateTime.Now.ToShortDateString();
+
+            exRange.Range[" D5: F5 "].Value = " Nhân viên lập báo cáo ";
+            exRange.Range[" D5: F5 "].MergeCells = true;
+            exRange.Range["D5: F5 "].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
+            exRange.Range[" D5: F5 "].Value = " (Kí, Ghi rõ họ tên)";
+            exApp.Visible = true;
             exSheet.Name = "Báo cáo";
             exApp.Visible = true;
         }

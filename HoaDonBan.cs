@@ -51,7 +51,9 @@ namespace hoa_don_nhap
             txtTenNV.Enabled = false;
             DAO.OpenConnection();
             string sql;
-            sql = "SELECT b.tenbinh,c.ngayban,a.SoHDB,a.Mabinh,makhach,manv, a.Soluong, b.Dongiaban, a.Giamgia,a.Thanhtien  FROM Chi_tiet_hoa_don_ban AS a join DM_Binh_ga as b on a.mabinh=b.mabinh join hoa_don_ban as c on a.SoHDB=c.SoHDB ";
+            sql = "SELECT b.tenbinh,c.ngayban,a.SoHDB,b.Mabinh,makhach,manv, a.Soluong, b.Dongiaban, a.Giamgia,a.Thanhtien " +
+                " FROM Chi_tiet_hoa_don_ban AS a join DM_Binh_ga as b on a.mabinh=b.mabinh join" +
+                " hoa_don_ban as c on a.SoHDB=c.SoHDB ";
             Chi_tiet_hoa_don_ban = DAO.GetDataToTable(sql);
             DataGridViewChiTiet.DataSource = Chi_tiet_hoa_don_ban;
             DAO.CloseConnection();
@@ -97,21 +99,6 @@ namespace hoa_don_nhap
         }
 
 
-            private void DataGridViewChiTiet_CellClick(object sender, DataGridViewCellEventArgs e)
-            {
-                DAO.OpenConnection();
-                txtTenbinh.Text = DataGridViewChiTiet.CurrentRow.Cells["tenbinh"].Value.ToString();
-                txtSoluong.Text = DataGridViewChiTiet.CurrentRow.Cells["soluong"].Value.ToString();
-                txtSoHDB.Text = DataGridViewChiTiet.CurrentRow.Cells["sohdb"].Value.ToString();
-                txtNgayBan.Text = DAO.ConvertDateTime(DataGridViewChiTiet.CurrentRow.Cells["ngayban"].Value.ToString());
-                txtDongia.Text = DataGridViewChiTiet.CurrentRow.Cells["dongiaban"].Value.ToString();
-                txtGiamgia.Text = DataGridViewChiTiet.CurrentRow.Cells["giamgia"].Value.ToString();
-                txtThanhtien.Text = DataGridViewChiTiet.CurrentRow.Cells["thanhtien"].Value.ToString();
-                cmbMabinh.Text = DataGridViewChiTiet.CurrentRow.Cells["mabinh"].Value.ToString();
-                cmbMaKH.Text = DataGridViewChiTiet.CurrentRow.Cells["makh"].Value.ToString();
-                cmbMaNV.Text = DataGridViewChiTiet.CurrentRow.Cells["manv"].Value.ToString();
-            }
-
             private void cmbMaNV_SelectedIndexChanged(object sender, EventArgs e)
             {
                 string str;
@@ -152,10 +139,11 @@ namespace hoa_don_nhap
                     txtDongia.Text = "";
 
                 }
-                str = "select tenbinh from dm_binh_ga where mabinh = N'" + cmbMabinh.SelectedValue + "'";
+                str = "select tenbinh from DM_Binh_ga where mabinh = N'" + cmbMabinh.SelectedValue + "'";
                 txtTenbinh.Text = DAO.GetFieldValues(str);
                 str = "select dongiaban from dm_binh_ga where mabinh = N'" + cmbMabinh.SelectedValue + "'";
                 txtDongia.Text = DAO.GetFieldValues(str);
+            DAO.CloseConnection();
             }
 
             private void DataGridViewChiTiet_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -176,10 +164,7 @@ namespace hoa_don_nhap
         private void btnThem_Click_1(object sender, EventArgs e)
         {
 
-            btnXoa.Enabled = false;
-            btnLuu.Enabled = true;
-            btnInhoadon.Enabled = false;
-            btnThem.Enabled = false;
+           
             cmbMabinh.SelectedIndex = -1;
             cmbMaKH.SelectedIndex = -1;
             cmbMaNV.SelectedIndex = -1;
@@ -193,10 +178,11 @@ namespace hoa_don_nhap
 
         private void btnLuu_Click_1(object sender, EventArgs e)
         {
-            DAO.OpenConnection();
+            
             string sql;
             double sl, SLcon, tong, Tongmoi;
             //double giaban, giabanmoi;
+            DAO.OpenConnection();
             sql = "SELECT SoHDB FROM Hoa_don_ban WHERE SoHDB=N'" + txtSoHDB.Text + "'";
             if (!DAO.CheckKey(sql))
             {
@@ -219,11 +205,11 @@ namespace hoa_don_nhap
                     cmbMaKH.Focus();
                     return;
                 }
-                sql = "INSERT INTO hoa_don_ban(SoHDN, MaNV, Ngayban, makhach, TongTien) VALUES(N'" +txtSoHDB.Text.Trim() + "', N'" + cmbMaNV.SelectedValue + "', N'" +
+                sql = "INSERT INTO hoa_don_ban(SoHDB, MaNV, Ngayban, makhach, TongTien) VALUES(N'" +txtSoHDB.Text.Trim() + "', N'" + cmbMaNV.SelectedValue + "', N'" +
  
                          txtNgayBan.Text.Trim() + "',N'" +
                          cmbMaKH.SelectedValue + "'," + txtTongtien.Text + ")";
-                MessageBox.Show(sql);
+                //MessageBox.Show(sql);
                 DAO.RunSql(sql);
             }
             // Lưu thông tin của các mặt hàng
@@ -265,25 +251,25 @@ namespace hoa_don_nhap
             }
             sql = "INSERT INTO Chi_tiet_hoa_don_ban(SoHDB,Mabinh,Soluong, Giamgia,Thanhtien) VALUES(N'" + txtSoHDB.Text + "',N'"
                 + cmbMabinh.SelectedValue + "'," + txtSoluong.Text + "," + txtGiamgia.Text + "," + txtThanhtien.Text + ")";
-            MessageBox.Show(sql);
+            //MessageBox.Show(sql);
             DAO.RunSql(sql);
             Load_DataGridViewChitiet();
             // Cập nhật lại số lượng của mặt hàng vào bảng DM_Binh_ga
             SLcon = sl - Convert.ToDouble(txtSoluong.Text);
             sql = "UPDATE DM_Binh_ga SET Soluong =" + SLcon + " WHERE Mabinh= N'" + cmbMabinh.SelectedValue + "'";
             DAO.RunSql(sql);
-            // Cập nhật lại tổng tiền cho hóa đơn bán
-           
+            
+            //Cập nhật lại tổng tiền cho hóa đơn bán
 
-             /*tong = Int32.Parse(DAO.GetFieldValues("SELECT Tongtien FROM Hoa_don_ban WHERE SoHDB = N'" + txtSoHDB.Text + "'"));
+
+            tong = Int32.Parse(DAO.GetFieldValues("SELECT tongtien FROM hoa_don_ban WHERE SoHDB = N'" + txtSoHDB.Text + "'"));
             Tongmoi = tong + Convert.ToDouble(txtThanhtien.Text);
             sql = "UPDATE Hoa_don_ban SET Tongtien =" + Tongmoi + " WHERE SoHDB = N'" + txtSoHDB.Text + "'";
             DAO.RunSql(sql);
             txtTongtien.Text = Tongmoi.ToString();
-            labelChuyen.Text = "Bằng chữ: " + DAO.ChuyenSoSangChu(Tongmoi.ToString());*/
+            labelChuyen.Text = "Bằng chữ: " + DAO.ChuyenSoSangChu(Tongmoi.ToString());
             ResetValuesHang();
-            btnXoa.Enabled = true;
-            btnThem.Enabled = true;
+            
             //btnInhoadon = true;
         }
 
@@ -341,14 +327,14 @@ namespace hoa_don_nhap
 
                 //Xóa chi tiết hóa đơn
                 sql = "DELETE Chi_tiet_hoa_don_ban WHERE SoHDB=N'" + txtSoHDB.Text + "'";
-                DAO.RunSqlDel(sql);
+                DAO.RunSql(sql);
 
                 //Xóa hóa đơn
                 sql = "DELETE Hoa_don_ban WHERE SoHDB=N'" + txtSoHDB.Text + "'";
-                DAO.RunSqlDel(sql);
+                DAO.RunSql(sql);
                 ResetValues();
                 Load_DataGridViewChitiet();
-                btnXoa.Enabled = false;
+                
             }
     }
 
@@ -409,8 +395,7 @@ namespace hoa_don_nhap
             Chi_tiet_hoa_don_ban = DAO.GetDataToTable(sql);
             DataGridViewChiTiet.DataSource = Chi_tiet_hoa_don_ban;
 
-            btnXoa.Enabled = true;
-            btnLuu.Enabled = true;
+           
             cmbMaHDB.SelectedIndex = -1;
         }
 
@@ -456,59 +441,66 @@ namespace hoa_don_nhap
 
         private void btnInhoadon_Click_1(object sender, EventArgs e)
         {
+            // Khởi động chương trình Excel
             COMExcel.Application exApp = new COMExcel.Application();
             COMExcel.Workbook exBook; //Trong 1 chương trình Excel có nhiều Workbook
             COMExcel.Worksheet exSheet; //Trong 1 Workbook có nhiều Worksheet
             COMExcel.Range exRange;
             string sql;
             int hang = 0, cot = 0;
-            DataTable hoa_don_ban, DM_Binh_ga;
+            DataTable tblThongtinHD, tblThongtinHang;
             exBook = exApp.Workbooks.Add(COMExcel.XlWBATemplate.xlWBATWorksheet);
             exSheet = exBook.Worksheets[1];
             // Định dạng chung
             exRange = exSheet.Cells[1, 1];
-            exRange.Range["A1:Z300"].Font.Name = "Times new roman"; //Font chữ
             exRange.Range["A1:B3"].Font.Size = 10;
+            exRange.Range["A1:B3"].Font.Name = "Times new roman";
             exRange.Range["A1:B3"].Font.Bold = true;
             exRange.Range["A1:B3"].Font.ColorIndex = 5; //Màu xanh da trời
             exRange.Range["A1:A1"].ColumnWidth = 7;
             exRange.Range["B1:B1"].ColumnWidth = 15;
             exRange.Range["A1:B1"].MergeCells = true;
             exRange.Range["A1:B1"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
-            exRange.Range["A1:B1"].Value = "Bình gas A";
+            exRange.Range["A1:B1"].Value = "Đại Lý Bán Ga Nhóm 9";
+
             exRange.Range["A2:B2"].MergeCells = true;
             exRange.Range["A2:B2"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
-            exRange.Range["A2:B2"].Value = "Hoàng Mai - Hà Nội";
+            exRange.Range["A2:B2"].Value = "Số 75 Thái Hà-Đống Đa-Hà Nội";
+
             exRange.Range["A3:B3"].MergeCells = true;
             exRange.Range["A3:B3"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
-            exRange.Range["A3:B3"].Value = "Điện thoại: (09)38526419";
+            exRange.Range["A3:B3"].Value = "Điện thoại: 0866162243";
+
+
             exRange.Range["C2:E2"].Font.Size = 16;
+            exRange.Range["C2:E2"].Font.Name = "Times new roman";
             exRange.Range["C2:E2"].Font.Bold = true;
             exRange.Range["C2:E2"].Font.ColorIndex = 3; //Màu đỏ
             exRange.Range["C2:E2"].MergeCells = true;
             exRange.Range["C2:E2"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
             exRange.Range["C2:E2"].Value = "HÓA ĐƠN BÁN";
             // Biểu diễn thông tin chung của hóa đơn bán
-            sql = @"SELECT a.SoHDB, a.Ngayban, a.Tongtien, b.Tenkhach, b.Diachi, b.Dienthoai, c.TenNV FROM Hoa_don_ban AS a, Khach_hang AS b, Nhan_Vien AS c WHERE a.SoHDB= N'" + txtSoHDB.Text + "' AND a.Makhach = b.Makhach AND a.MaNV = c.MaNV";
-            hoa_don_ban = DAO.GetDataToTable(sql);
+            sql = "SELECT a.SoHDB, a.Ngayban, a.Tongtien, b.tenkhach, b.Diachi, b.Dienthoai, c.TenNV FROM hoa_don_ban AS a, khach_hang AS b, nhan_vien AS c WHERE a.SoHDB = N'" + txtSoHDB.Text + "' AND a.Makhach = b.Makhach AND a.MaNV = c.MaNV";
+            tblThongtinHD = DAO.GetDataToTable(sql);
             exRange.Range["B6:C9"].Font.Size = 12;
+            exRange.Range["B6:C9"].Font.Name = "Times new roman";
             exRange.Range["B6:B6"].Value = "Mã hóa đơn:";
             exRange.Range["C6:E6"].MergeCells = true;
-            exRange.Range["C6:E6"].Value = hoa_don_ban.Rows[0][0].ToString();
+            exRange.Range["C6:E6"].Value = tblThongtinHD.Rows[0][0].ToString();
             exRange.Range["B7:B7"].Value = "Khách hàng:";
             exRange.Range["C7:E7"].MergeCells = true;
-            exRange.Range["C7:E7"].Value = hoa_don_ban.Rows[0][3].ToString();
+            exRange.Range["C7:E7"].Value = tblThongtinHD.Rows[0][3].ToString();
             exRange.Range["B8:B8"].Value = "Địa chỉ:";
             exRange.Range["C8:E8"].MergeCells = true;
-            exRange.Range["C8:E8"].Value = hoa_don_ban.Rows[0][4].ToString();
+            exRange.Range["C8:E8"].Value = tblThongtinHD.Rows[0][4].ToString();
             exRange.Range["B9:B9"].Value = "Điện thoại:";
             exRange.Range["C9:E9"].MergeCells = true;
-            exRange.Range["C9:E9"].Value = hoa_don_ban.Rows[0][5].ToString();
+            exRange.Range["C9:E9"].Value = tblThongtinHD.Rows[0][5].ToString();
             //Lấy thông tin các mặt hàng
-            sql = @"SELECT b.Tenbinh, a.Soluong, b.Dongiaban, a.Giamgia, a.Thanhtien " +
-                  "FROM Chi_tiet_hoa_don_ban AS a , DM_Binh_ga AS b WHERE a.SoHDB = N'" +
-                  txtSoHDB.Text + "' AND a.Mabinh = b.Mabinh";
-            DM_Binh_ga = DAO.GetDataToTable(sql);
+            sql = "SELECT b.Tenbinh, a.Soluong, b.Dongiaban, a.Giamgia, a.Thanhtien " +
+                  "FROM chi_tiet_hoa_don_ban AS a , DM_Binh_ga AS b WHERE a.SoHDB = N'" +
+                  txtSoHDB.Text + "' AND a.mabinh = b.mabinh";
+            tblThongtinHang = DAO.GetDataToTable(sql);
             //Tạo dòng tiêu đề bảng
             exRange.Range["A11:F11"].Font.Bold = true;
             exRange.Range["A11:F11"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
@@ -519,34 +511,32 @@ namespace hoa_don_nhap
             exRange.Range["D11:D11"].Value = "Đơn giá";
             exRange.Range["E11:E11"].Value = "Giảm giá";
             exRange.Range["F11:F11"].Value = "Thành tiền";
-            for (hang = 0; hang < DM_Binh_ga.Rows.Count; hang++)
+            for (hang = 0; hang <= tblThongtinHang.Rows.Count - 1; hang++)
             {
                 //Điền số thứ tự vào cột 1 từ dòng 12
                 exSheet.Cells[1][hang + 12] = hang + 1;
-                for (cot = 0; cot < DM_Binh_ga.Columns.Count; cot++)
-                //Điền thông tin hàng từ cột thứ 2, dòng 12
-                {
-                    exSheet.Cells[cot + 2][hang + 12] = DM_Binh_ga.Rows[hang][cot].ToString();
-                    if (cot == 3) exSheet.Cells[cot + 2][hang + 12] = DM_Binh_ga.Rows[hang][cot].ToString() + "%";
-                }
+                for (cot = 0; cot <= tblThongtinHang.Columns.Count - 1; cot++)
+                    //Điền thông tin hàng từ cột thứ 2, dòng 12
+                    exSheet.Cells[cot + 2][hang + 12] = tblThongtinHang.Rows[hang][cot].ToString();
             }
-            exRange = exSheet.Cells[cot][hang + 15];
+            exRange = exSheet.Cells[cot][hang + 14];
             exRange.Font.Bold = true;
             exRange.Value2 = "Tổng tiền:";
-            exRange = exSheet.Cells[cot + 1][hang + 15];
+            exRange = exSheet.Cells[cot + 1][hang + 14];
             exRange.Font.Bold = true;
-            exRange.Value2 = DM_Binh_ga.Rows[0][2].ToString();
-            exRange = exSheet.Cells[1][hang + 16]; //Ô A1 
+            exRange.Value2 = tblThongtinHD.Rows[0][2].ToString();
+            exRange = exSheet.Cells[1][hang + 15]; //Ô A1 
             exRange.Range["A1:F1"].MergeCells = true;
             exRange.Range["A1:F1"].Font.Bold = true;
             exRange.Range["A1:F1"].Font.Italic = true;
             exRange.Range["A1:F1"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignRight;
-            exRange.Range["A1:F1"].Value = "Bằng chữ: " + DAO.ChuyenSoSangChu(DM_Binh_ga.Rows[0][2].ToString());
-            exRange = exSheet.Cells[4][hang + 18]; //Ô A1 
+            exRange.Range["A1:F1"].Value = "Bằng chữ: " + DAO.ChuyenSoSangChu
+ (tblThongtinHD.Rows[0][2].ToString());
+            exRange = exSheet.Cells[4][hang + 17]; //Ô A1 
             exRange.Range["A1:C1"].MergeCells = true;
             exRange.Range["A1:C1"].Font.Italic = true;
             exRange.Range["A1:C1"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
-            DateTime d = Convert.ToDateTime(hoa_don_ban.Rows[0][1]);
+            DateTime d = Convert.ToDateTime(tblThongtinHD.Rows[0][1]);
             exRange.Range["A1:C1"].Value = "Hà Nội, ngày " + d.Day + " tháng " + d.Month + " năm " + d.Year;
             exRange.Range["A2:C2"].MergeCells = true;
             exRange.Range["A2:C2"].Font.Italic = true;
@@ -555,9 +545,12 @@ namespace hoa_don_nhap
             exRange.Range["A6:C6"].MergeCells = true;
             exRange.Range["A6:C6"].Font.Italic = true;
             exRange.Range["A6:C6"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
-            exRange.Range["A6:C6"].Value = hoa_don_ban.Rows[0][6];
-            exSheet.Name = "Hóa đơn bán ";
+            exRange.Range["A6:C6"].Value = tblThongtinHD.Rows[0][6];
+            exSheet.Name = "Hóa đơn bán";
             exApp.Visible = true;
+
+
+
         }
 
         private void cmbMaNV_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -583,9 +576,9 @@ namespace hoa_don_nhap
                 txtDongia.Text = "";
 
             }
-            str = "select tenbinh from dm_binh_ga where mabinh = N'" + cmbMabinh.SelectedValue + "'";
+            str = "select tenbinh from DM_Binh_ga where mabinh = N'" + cmbMabinh.SelectedValue + "'";
             txtTenbinh.Text = DAO.GetFieldValues(str);
-            str = "select dongiaban from dm_binh_ga where mabinh = N'" + cmbMabinh.SelectedValue + "'";
+            str = "select dongiaban from DM_Binh_ga where mabinh = N'" + cmbMabinh.SelectedValue + "'";
             txtDongia.Text = DAO.GetFieldValues(str);
 
         }
@@ -621,6 +614,13 @@ namespace hoa_don_nhap
             cmbMabinh.Text = DataGridViewChiTiet.CurrentRow.Cells["mabinh"].Value.ToString();
             cmbMaKH.Text = DataGridViewChiTiet.CurrentRow.Cells["makh"].Value.ToString();
             cmbMaNV.Text = DataGridViewChiTiet.CurrentRow.Cells["manv"].Value.ToString();
+        }
+
+        
+
+        private void btnDong_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

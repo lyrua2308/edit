@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.Sql;
-using System.Data;
 using System.Data.SqlClient;
 
 namespace hoa_don_nhap
@@ -42,7 +41,7 @@ namespace hoa_don_nhap
             DAO.OpenConnection();
 
             {
-                DataTable tk, tk1;
+                DataTable tk;
                 //string sql = "select count(*) from taikhoan where taikhoan='" + txtTaikhoan.Text + "' and matkhau='" + txtMatkhau.Text + "'";
 
                 string sql1 = "select * from taikhoan where taikhoan='" + txtTaikhoan.Text + "' and matkhau='" + txtMatkhau.Text + "'";

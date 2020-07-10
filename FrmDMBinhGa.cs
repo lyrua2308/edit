@@ -15,15 +15,46 @@ namespace hoa_don_nhap
 {
     public partial class FrmDMBinhGa : Form
     {
-        private string sql;
+      
         public FrmDMBinhGa()
         {
             InitializeComponent();
         }
+        private void goiy()
+        {
+            string sql = "select distinct thoigianbaohanh from DM_Binh_ga ";
 
-        private void DMBinhGas_Load(object sender, EventArgs e)
+
+
+            SqlDataReader reader = DAO.getDataReader(sql);
+
+            AutoCompleteStringCollection auto = new AutoCompleteStringCollection();
+
+            if (reader != null)
+
+            {
+
+                while (reader.Read())
+
+                {
+
+                    auto.Add(reader["thoigianbaohanh"].ToString());
+
+                }
+
+            }
+            txtTGBH.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+
+            txtTGBH.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+            txtTGBH.AutoCompleteCustomSource = auto;
+
+            reader.Close();
+        }
+            private void DMBinhGas_Load(object sender, EventArgs e)
         {
             RefreshData();
+            goiy();
         }
 
         public void RefreshData()
@@ -45,7 +76,7 @@ namespace hoa_don_nhap
         private void LoadDataToGridView()
         {
             DAO.OpenConnection();
-            string sql = " select * from DM_Binh_ga";
+            string sql = " SELECT * FROM DM_Binh_ga";
             SqlDataAdapter adapter = new SqlDataAdapter(sql, DAO.Conn);
             DataTable table = new DataTable();
             adapter.Fill(table);
@@ -72,385 +103,6 @@ namespace hoa_don_nhap
             cmbNuocSX.DisplayMember = "TennuocSX";
             DAO.CloseConnection();
         }
-
-        //        using System;
-        //using System.Windows.Forms;
-        //using System.Data;
-        //using System.Data.Sql;
-        //using System.Data.SqlClient;
-        //using System.Windows;
-        //using System.Drawing;
-        //using System.Threading.Tasks;
-
-
-        //namespace BaiTapNhom
-        //    {
-        //        public partial class DMBinhGas : Form
-        //        {
-        //            public DMBinhGas()
-        //            {
-        //                InitializeComponent();
-        //            }
-
-        //            private void DMBinhGas_Load(object sender, EventArgs e)
-        //            {
-        //                RefreshData();
-        //            }
-
-        //public void RefreshData()
-        //    {
-        //        DAO.OpenConnection();
-        //        LoadDataToGridView();
-        //        FillDataToCombo();
-        //        DAO.ClosedConnection();
-        //        string sql = "select Maloai,Tenloai from Loai_ga";
-        //        DAO.OpenConnection();
-        //        DAO.fillDataToCombo(sql, cmbLoaiGas, "Maloai", "Tenloai");
-        //        sql = "select Mamau,Tenmau from Mau";
-        //        DAO.fillDataToCombo(sql, cmbMau, "Mamau", "Tenmau");
-        //        sql = "select Makhoiluong from Khoi_luong";
-        //        DAO.fillDataToCombo(sql, cmbKhoiLuong, "Makhoiluong", "Makhoiluong");
-        //        sql = "select ManuocSX,TennuocSX from Nuoc_san_xuat";
-        //        DAO.fillDataToCombo(sql, cmbNuocSX, "ManuocSX", "TennuocSX");
-        //    }
-
-        //private void LoadDataToGridView()
-        //{
-        //    string sql = " select * from DM_Binh_ga";
-        //    SqlDataAdapter adapter = new SqlDataAdapter(sql, DAO.conn);
-        //    DataTable table = new DataTable();
-        //    adapter.Fill(table);
-        //    GridViewBinhGas.DataSource = table;
-
-        //}
-        //public void FillDataToCombo()
-        //{
-        //    string sql = "select * from DM_Binh_ga";
-        //    SqlDataAdapter adapter = new SqlDataAdapter(sql, DAO.conn);
-        //    DataTable table = new DataTable();
-        //    adapter.Fill(table);
-        //    cmbLoaiGas.DataSource = table;
-        //    cmbLoaiGas.ValueMember = "Maloai";
-        //    cmbLoaiGas.DisplayMember = "Tenloai";
-        //    cmbMau.DataSource = table;
-        //    cmbMau.ValueMember = "Mamau";
-        //    cmbMau.DisplayMember = "Tenmau";
-        //    cmbKhoiLuong.DataSource = table;
-        //    cmbKhoiLuong.ValueMember = "Makhoiluong";
-        //    cmbNuocSX.DataSource = table;
-        //    cmbNuocSX.ValueMember = "ManuocSX";
-        //    cmbNuocSX.DisplayMember = "TennuocSX";
-
-        //}
-
-        //private void btnThoat_Click(object sender, EventArgs e)
-        //    {
-        //        this.Close();
-        //    }
-
-        //private void btnThem_Click(object sender, EventArgs e)
-        //{
-        //    txtTenBinh.Text = "";
-        //    txtMaBinh.Text = "";
-        //    cmbKhoiLuong.Text = "";
-        //    cmbLoaiGas.Text = "";
-        //    cmbMau.Text = "";
-        //    cmbNuocSX.Text = "";
-        //    txtSoLuong.Text = "0";
-        //    txtDonGiaNhap.Text = "0";
-        //    txtDonGiaBan.Text = "0";
-        //    txtTGBH.Text = "";
-        //    txtAnh.Text = "";
-        //    txtGhichu.Text = "";
-        //    picAnh.Image = null;
-        //    cmbLoaiGas.SelectedIndex = -1;
-        //    cmbMau.SelectedIndex = -1;
-        //    cmbKhoiLuong.SelectedIndex = -1;
-        //    cmbNuocSX.SelectedIndex = -1;
-        //}
-
-        //private void GridViewBinhGas_CellClick(object sender, DataGridViewCellEventArgs e)
-        //{
-
-        //    DAO.OpenConnection();
-        //    if (btnThem.Enabled == false)
-        //    {
-        //        MessageBox.Show("Đang ở chế độ thêm mới!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //        txtMaBinh.Focus();
-        //        return;
-        //    }
-
-        //    txtMaBinh.Text = GridViewBinhGas.CurrentRow.Cells["Mabinh"].Value.ToString();
-        //    txtTenBinh.Text = GridViewBinhGas.CurrentRow.Cells["Tenbinh"].Value.ToString();
-        //    txtSoLuong.Text = GridViewBinhGas.CurrentRow.Cells["Soluong"].Value.ToString();
-        //    txtDonGiaNhap.Text = GridViewBinhGas.CurrentRow.Cells["Dongianhap"].Value.ToString();
-        //    txtDonGiaBan.Text = GridViewBinhGas.CurrentRow.Cells["Dongiaban"].Value.ToString();
-        //    txtTGBH.Text = GridViewBinhGas.CurrentRow.Cells["Thoigianbaohanh"].Value.ToString();
-        //    txtAnh.Text = GridViewBinhGas.CurrentRow.Cells["Anh"].Value.ToString();
-        //    txtGhichu.Text = GridViewBinhGas.CurrentRow.Cells["Ghichu"].Value.ToString();
-        //    cmbKhoiLuong.Text = GridViewBinhGas.CurrentRow.Cells["Makhoiluong"].Value.ToString();
-        //    cmbMau.Text = GridViewBinhGas.CurrentRow.Cells["Mamau"].Value.ToString();
-        //    cmbLoaiGas.Text = GridViewBinhGas.CurrentRow.Cells["Maloai"].Value.ToString();
-        //    cmbNuocSX.Text = GridViewBinhGas.CurrentRow.Cells["ManuocSX"].Value.ToString();
-
-        //    string sql;
-        //    double gianhap, giaban;
-        //    gianhap = Convert.ToDouble(DAO.GetFieldValues("Select Dongianhap from DM_Binh_ga where Mabinh = N'" + txtMaBinh.Text.Trim() + "'"));
-        //    giaban = (gianhap * 110) / 100;
-        //    sql = "UPDATE DM_Binh_ga SET Dongiaban =" + giaban + "where Mabinh =N'" + txtMaBinh.Text.Trim() + "'";
-        //    DAO.RunSql(sql);
-        //    txtDonGiaBan.Text = giaban.ToString();
-
-        //    btnSua.Enabled = true;
-        //    btnXoa.Enabled = true;
-        //    txtMaBinh.Enabled = true;
-
-
-
-        //}
-
-        //private void btnXoa_Click(object sender, EventArgs e)
-        //{
-        //    string sql;
-        //    sql = "select Mabinh from Chi_tiet_hoa_don_ban where Mabinh ='" + txtMaBinh.Text.Trim() + "'";
-        //    DAO.OpenConnection();
-        //    if (DAO.CheckExitKey(sql))
-        //    {
-        //        MessageBox.Show("Bạn không thể xóa vì Bình gas này đã được bán! ");
-        //        txtMaBinh.Focus();
-        //        DAO.ClosedConnection();
-        //        return;
-        //    }
-
-        //    else
-        //    {
-        //        sql = "delete from DM_Binh_ga where Mabinh =N'" + txtMaBinh.Text + "'";
-        //        DAO.OpenConnection();
-        //        SqlCommand cmd = new SqlCommand(sql, DAO.conn);
-        //        cmd.CommandText = sql;
-        //        cmd.Connection = DAO.conn;
-        //        cmd.ExecuteNonQuery();
-        //        DAO.ClosedConnection();
-        //        LoadDataToGridView();
-        //    }
-
-
-        //}
-
-        //private void btnSua_Click(object sender, EventArgs e)
-        //{
-        //    string sql;
-        //    sql = "Update DM_Binh_ga set Tenbinh=N'" + txtTenBinh.Text.Trim() + "',Maloai=N'" + cmbLoaiGas.SelectedValue.ToString() + "',Mamau=" + cmbMau.SelectedValue.ToString() + ",Makhoiluong=N'" + cmbKhoiLuong.SelectedValue.ToString()
-        //             + "',ManuocSX=N'" + cmbNuocSX.SelectedValue.ToString() + "',Soluong="
-        //             + txtSoLuong.Text.Trim() + ",Dongianhap=" + txtDonGiaNhap.Text.Trim() + ",Dongiaban="
-        //             + txtDonGiaBan.Text.Trim() + ",Thoigianbaohanh=N'" + txtTGBH.Text.Trim() + "',Anh='" + txtAnh.Text + "',Ghichu=N'" + txtGhichu.Text.Trim() + "' where Mabinh=N'" + txtMaBinh.Text.Trim() + "'";
-        //    DAO.OpenConnection();
-        //    txtMaBinh.Enabled = false;
-        //    SqlCommand cmd = new SqlCommand(sql, DAO.conn);
-        //    MessageBox.Show(sql);
-        //    cmd.CommandText = sql;
-        //    cmd.Connection = DAO.conn;
-        //    cmd.ExecuteNonQuery();
-        //    DAO.ClosedConnection();
-        //    LoadDataToGridView();
-
-
-
-        //}
-
-        //private void btnLuu_Click(object sender, EventArgs e)
-        //{
-        //    if (txtMaBinh.Text == "")
-        //    {
-        //        MessageBox.Show("Bạn không được để trống mã bình");
-        //        txtMaBinh.Focus();
-        //        return;
-
-        //    }
-        //    if (txtTenBinh.Text == "")
-        //    {
-        //        MessageBox.Show("bạn không được để trống tên bình");
-        //        txtTenBinh.Focus();
-        //        return;
-        //    }
-        //    if (cmbLoaiGas.SelectedIndex == -1)
-        //    {
-        //        MessageBox.Show("bạn chưa chọn loại gas");
-        //        return;
-        //    }
-        //    if (cmbMau.SelectedIndex == -1)
-        //    {
-        //        MessageBox.Show("bạn chưa chọn màu");
-        //        return;
-        //    }
-        //    if (cmbKhoiLuong.SelectedIndex == -1)
-        //    {
-        //        MessageBox.Show("bạn chưa chọn khối lượng");
-        //        return;
-        //    }
-        //    if (cmbNuocSX.SelectedIndex == -1)
-        //    {
-        //        MessageBox.Show("bạn chưa chọn nước sản xuất");
-        //        return;
-        //    }
-        //    if (txtSoLuong.Text == "")
-        //    {
-        //        MessageBox.Show("bạn không được để trống số lượng");
-        //        txtSoLuong.Focus();
-        //        return;
-        //    }
-        //    if (txtDonGiaNhap.Text == "")
-        //    {
-        //        MessageBox.Show("bạn không được để trống đơn giá nhập ");
-        //        txtDonGiaNhap.Focus();
-        //        return;
-        //    }
-        //    if (txtDonGiaBan.Text == "")
-        //    {
-        //        MessageBox.Show("bạn không được để trống đơn giá bán");
-        //        txtDonGiaBan.Focus();
-        //        return;
-        //    }
-        //    if (txtAnh.Text.Trim().Length == 0)
-        //    {
-        //        MessageBox.Show("Bạn phải chọn ảnh minh họa cho hàng");
-        //        txtAnh.Focus();
-        //        return;
-        //    }
-        //    if (txtTGBH.Text == "")
-        //    {
-        //        MessageBox.Show("bạn không được để trống thời gian bảo hành");
-        //        txtTGBH.Focus();
-        //        return;
-        //    }
-
-        //    string sql = "select * from DM_Binh_ga where Mabinh ='" + txtMaBinh.Text.Trim() + "'";
-        //    DAO.OpenConnection();
-        //    if (DAO.CheckExitKey(sql))
-        //    {
-        //        MessageBox.Show("Mã bình đã tồn tại");
-        //        txtMaBinh.Focus();
-        //        DAO.ClosedConnection();
-        //        return;
-        //    }
-        //    else
-        //    {
-
-        //        sql = "insert into DM_Binh_ga(Mabinh,Tenbinh,Maloai,Mamau,Makhoiluong,ManuocSX,Soluong,Dongianhap,Dongiaban,Thoigianbaohanh,Anh,Ghichu) values(N'" + txtMaBinh.Text.Trim() + "',N'"
-        //             + txtTenBinh.Text.Trim() + "',N'" + cmbLoaiGas.SelectedValue.ToString() + "'," + cmbMau.SelectedValue.ToString() + ",N'" + cmbKhoiLuong.SelectedValue.ToString()
-        //             + "',N'" + cmbNuocSX.SelectedValue.ToString() + "',"
-        //             + txtSoLuong.Text.Trim() + "," + txtDonGiaNhap.Text.Trim() + ","
-        //             + txtDonGiaBan.Text.Trim() + ",N'" + txtTGBH.Text.Trim() + "','" + txtAnh.Text + "',N'" + txtGhichu.Text.Trim() + "')";
-
-
-        //        //sql = "UPDATE tblHang SET  Tenhang=N'" + txtTenhang.Text.Trim().ToString() +  "',Machatlieu=N'" + cboMachatlieu.SelectedValue.ToString() + "',Anh='" + txtAnh.Text +"',Ghichu=N'" + txtGhichu.Text + "' WHERE Mahang=N'" + txtMahang.Text + "'";
-
-        //        MessageBox.Show(sql);
-        //        SqlCommand cmd = new SqlCommand(sql, DAO.conn);
-
-        //        cmd.ExecuteNonQuery();
-        //        LoadDataToGridView();
-        //        RefreshData();
-        //        DAO.ClosedConnection();
-        //        txtMaBinh.Enabled = true;
-        //    }
-
-        //}
-
-        //private void txtGhichu_TextChanged(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //private void btnOpen_Click(object sender, EventArgs e)
-        //{
-        //    OpenFileDialog dlgOpen = new OpenFileDialog();
-        //    dlgOpen.Filter = "Bitmap(*.bmp)|*.bmp|Gif(*.gif)|*.gif|All files(*.*)|*.*";
-        //    dlgOpen.InitialDirectory = "D:\\";
-        //    dlgOpen.FilterIndex = 2;
-        //    dlgOpen.Title = "Chọn hình ảnh để hiển thị";
-        //    if (dlgOpen.ShowDialog() == DialogResult.OK)
-        //    {
-        //        picAnh.Image = Image.FromFile(dlgOpen.FileName);
-        //        txtAnh.Text = dlgOpen.FileName;
-        //    }
-
-        //}
-
-        //private void btnTimKiem_Click(object sender, EventArgs e)
-        //{
-        //string sql;
-        //if ((txtMaBinh.Text == "") && (txtTenBinh.Text == "") && (cmbLoaiGas.Text == "") && (cmbMau.Text == "") && (cmbKhoiLuong.Text == "")
-        //    && (cmbNuocSX.Text == "") && (txtSoLuong.Text == "") && (txtDonGiaNhap.Text == "") && (txtDonGiaBan.Text == "") && (txtTGBH.Text == "")
-        //    && (txtAnh.Text == "") && (txtGhichu.Text == ""))
-        //{
-        //    MessageBox.Show("Hãy nhập một điều kiện tìm kiếm!!!");
-        //    return;
-        //}
-
-        //sql = "SELECT * FROM DM_Binh_ga WHERE 1=1";
-
-        //if (txtMaBinh.Text != "")
-        //    sql = sql + " AND MaBinh Like N'%" + txtMaBinh.Text + "%'";
-        //if (txtTenBinh.Text != "")
-        //    sql = sql + " AND TenBinh Like N'%" + txtTenBinh.Text + "%'";
-        //if (cmbLoaiGas.Text != "")
-        //    sql = sql + " AND Maloai Like N'%" + cmbLoaiGas.SelectedValue + "%'";
-        //if (cmbMau.Text != "")
-        //    sql = sql + " AND Mamau Like N'%" + cmbMau.SelectedValue + "%'";
-        //if (cmbKhoiLuong.Text != "")
-        //    sql = sql + " AND Makhoiluong Like N'%" + cmbKhoiLuong.SelectedValue + "%'";
-        //if (cmbNuocSX.Text != "")
-        //    sql = sql + " AND ManuocSX Like N'%" + cmbNuocSX.SelectedValue + "%'";
-        //if (txtSoLuong.Text != "")
-        //    sql = sql + " AND Soluong Like N'%" + txtSoLuong.Text + "%'";
-        //if (txtDonGiaNhap.Text != "")
-        //    sql = sql + " AND Dongianhap Like N'%" + txtDonGiaNhap.Text + "%'";
-        //if (txtDonGiaBan.Text != "")
-        //    sql = sql + " AND Dongiaban Like N'%" + txtDonGiaBan.Text + "%'";
-        //if (txtTGBH.Text != "")
-        //    sql = sql + " AND Thoigianbaohanh Like N'%" + txtTGBH.Text + "%'";
-        //if (txtAnh.Text != "")
-        //    sql = sql + " AND Anh Like N'%" + txtAnh.Text + "%'";
-        //if (txtGhichu.Text != "")
-        //    sql = sql + " AND Ghichu Like N'%" + txtGhichu.Text + "%'";
-        //DataTable DM_Binh_ga = DAO.GetDataToTable(sql);
-        //if (DM_Binh_ga.Rows.Count == 0)
-        //    MessageBox.Show("Không có bản ghi thỏa mãn điều kiện!!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //else
-
-        //    MessageBox.Show("Có " + DM_Binh_ga.Rows.Count + " bản ghi thỏa mãn điều kiện!!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //GridViewBinhGas.DataSource = DM_Binh_ga;
-        //txtMaBinh.Enabled = false;
-        //txtGhichu.Enabled = false;
-        //txtTenBinh.Enabled = false;
-        //txtDonGiaNhap.Enabled = false;
-        //txtDonGiaBan.Enabled = false;
-        //txtAnh.Enabled = false;
-        //cmbKhoiLuong.Enabled = false;
-        //cmbMau.Enabled = false;
-
-        //}
-
-        //private void btnHienThiDS_Click(object sender, EventArgs e)
-        //{
-        //    string sql;
-        //    sql = "SELECT Mabinh, Tenbinh, Maloai,Mamau,Makhoiluong,ManuocSX,Soluong, Dongianhap, Dongiaban,Thoigianbaohanh, Anh, Ghichu FROM DM_Binh_ga";
-        //    DataTable DM_Binh_ga = DAO.GetDataToTable(sql);
-        //    GridViewBinhGas.DataSource = DM_Binh_ga;
-        //}
-
-        //private void txtDonGiaNhap_TextChanged(object sender, EventArgs e)
-        //{
-        //    double gb, gn;
-
-        //    if (txtDonGiaNhap.Text == "")
-        //        gn = 0;
-        //    else
-        //        gn = Convert.ToDouble(txtDonGiaNhap.Text);
-        //    gb = gn * 110 / 100;
-        //    txtDonGiaBan.Text = gb.ToString();
-        //}
 
         private void btnThoat_Click_1(object sender, EventArgs e)
         {
@@ -501,7 +153,12 @@ namespace hoa_don_nhap
             cmbKhoiLuong.Text = GridViewBinhGas.CurrentRow.Cells["Makhoiluong"].Value.ToString();
             cmbMau.Text = GridViewBinhGas.CurrentRow.Cells["Mamau"].Value.ToString();
             cmbLoaiGas.Text = GridViewBinhGas.CurrentRow.Cells["Maloai"].Value.ToString();
-            cmbNuocSX.Text = GridViewBinhGas.CurrentRow.Cells["ManuocSX"].Value.ToString();
+            cmbNuocSX.Text = GridViewBinhGas.CurrentRow.Cells["manuocSX"].Value.ToString();
+
+            if (!String.IsNullOrEmpty(txtAnh.Text))
+            {
+                picAnh.Image = Image.FromFile(txtAnh.Text);
+            }
 
             string sql;
             double gianhap, giaban;
@@ -545,20 +202,32 @@ namespace hoa_don_nhap
             DAO.CloseConnection();
         }
 
-        
+        public string Equal(string field, object value)
+        {
+            if (value != null)
+            {
+                return "'," + field + "=N'" + value.ToString();
+            }
+
+            return "";
+        }
         //edit
         private void btnSua_Click(object sender, EventArgs e)
         {
-
-            string sql;
-            sql = "Update DM_Binh_ga set Tenbinh=N'" + txtTenBinh.Text.Trim() + "',Maloai=N'" + cmbLoaiGas.SelectedValue.ToString() + "',Mamau=" + cmbMau.SelectedValue.ToString() + ",Makhoiluong=N'" + cmbKhoiLuong.SelectedValue.ToString()
-                     + "',ManuocSX=N'" + cmbNuocSX.SelectedValue.ToString() + "',Soluong="
-                     + txtSoLuong.Text.Trim() + ",Dongianhap=" + txtDonGiaNhap.Text.Trim() + ",Dongiaban="
-                     + txtDonGiaBan.Text.Trim() + ",Thoigianbaohanh=N'" + txtTGBH.Text.Trim() + "',Anh='" + txtAnh.Text + "',Ghichu=N'" + txtGhichu.Text.Trim() + "' where Mabinh=N'" + txtMaBinh.Text.Trim() + "'";
             DAO.OpenConnection();
+            string sql;
+            sql = "Update DM_Binh_ga set Tenbinh=N'" + txtTenBinh.Text.Trim() 
+                    + Equal("Maloai", cmbLoaiGas.SelectedValue) 
+                    + Equal("Mamau", cmbMau.SelectedValue)
+                    + Equal("Makhoiluong", cmbKhoiLuong.SelectedValue)
+                    + Equal("ManuocSX", cmbNuocSX.SelectedValue) 
+                    + "',Soluong=" + txtSoLuong.Text.Trim() 
+                    + ",Dongianhap=" + txtDonGiaNhap.Text.Trim()
+                    + ",Dongiaban=" + txtDonGiaBan.Text.Trim() + ",Thoigianbaohanh=N'" + txtTGBH.Text.Trim() + "',Anh='" + txtAnh.Text + "',Ghichu=N'" + txtGhichu.Text.Trim() + "' where Mabinh=N'" + txtMaBinh.Text.Trim() + "'";
+            
             txtMaBinh.Enabled = false;
             SqlCommand cmd = new SqlCommand(sql, DAO.Conn);
-            MessageBox.Show(sql);
+            //MessageBox.Show(sql);
             cmd.CommandText = sql;
             cmd.Connection = DAO.Conn;
             cmd.ExecuteNonQuery();
@@ -657,7 +326,7 @@ namespace hoa_don_nhap
 
                
 
-                MessageBox.Show(sql);
+                //MessageBox.Show(sql);
                 SqlCommand cmd = new SqlCommand(sql, DAO.Conn);
 
                 cmd.ExecuteNonQuery();
@@ -689,7 +358,7 @@ namespace hoa_don_nhap
         //tim kiem
         private void btnTimKiem_Click_1(object sender, EventArgs e)
         {
-            DAO.OpenConnection();
+            
             string sql;
             if ((txtMaBinh.Text == "") && (txtTenBinh.Text == "") && (cmbLoaiGas.Text == "") && (cmbMau.Text == "") && (cmbKhoiLuong.Text == "")
                 && (cmbNuocSX.Text == "") && (txtSoLuong.Text == "") && (txtDonGiaNhap.Text == "") && (txtDonGiaBan.Text == "") && (txtTGBH.Text == "")
@@ -713,11 +382,11 @@ namespace hoa_don_nhap
                 sql = sql + " AND Makhoiluong Like N'%" + cmbKhoiLuong.SelectedValue + "%'";
             if (cmbNuocSX.Text != "")
                 sql = sql + " AND ManuocSX Like N'%" + cmbNuocSX.SelectedValue + "%'";
-            if (txtSoLuong.Text != "")
+            if (txtSoLuong.Text != "" && txtSoLuong.Text != "0")
                 sql = sql + " AND Soluong Like N'%" + txtSoLuong.Text + "%'";
-            if (txtDonGiaNhap.Text != "")
+            if (txtDonGiaNhap.Text != "" && txtDonGiaNhap.Text != "0")
                 sql = sql + " AND Dongianhap Like N'%" + txtDonGiaNhap.Text + "%'";
-            if (txtDonGiaBan.Text != "")
+            if (txtDonGiaBan.Text != "" && txtDonGiaBan.Text != "0")
                 sql = sql + " AND Dongiaban Like N'%" + txtDonGiaBan.Text + "%'";
             if (txtTGBH.Text != "")
                 sql = sql + " AND Thoigianbaohanh Like N'%" + txtTGBH.Text + "%'";
@@ -725,23 +394,24 @@ namespace hoa_don_nhap
                 sql = sql + " AND Anh Like N'%" + txtAnh.Text + "%'";
             if (txtGhichu.Text != "")
                 sql = sql + " AND Ghichu Like N'%" + txtGhichu.Text + "%'";
-            DataTable DM_Binh_ga = DAO.GetDataToTable(sql);
+             DataTable DM_Binh_ga = DAO.GetDataToTable(sql);
             if (DM_Binh_ga.Rows.Count == 0)
-                MessageBox.Show("Không có bản ghi thỏa mãn điều kiện!!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            else
+               MessageBox.Show("Không có bản ghi thỏa mãn điều kiện!!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+             else
 
-                MessageBox.Show("Có " + DM_Binh_ga.Rows.Count + " bản ghi thỏa mãn điều kiện!!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            GridViewBinhGas.DataSource = DM_Binh_ga;
+               MessageBox.Show("Có " + DM_Binh_ga.Rows.Count + " bản ghi thỏa mãn điều kiện!!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+             GridViewBinhGas.DataSource = DM_Binh_ga;
+           
             txtMaBinh.Enabled = true;
             txtGhichu.Enabled = true;
             txtTenBinh.Enabled = true;
             txtDonGiaNhap.Enabled = true;
             txtDonGiaBan.Enabled = true;
-            txtAnh.Enabled = true;
+            txtAnh.Enabled = true;              
             cmbKhoiLuong.Enabled = true;
             cmbMau.Enabled = true;
             
-            DAO.CloseConnection();
+           
         }
 
         private void btnHienThi_Click(object sender, EventArgs e)
@@ -754,7 +424,8 @@ namespace hoa_don_nhap
             btnXoa.Enabled = true;
 
             string sql;
-            sql = "SELECT Mabinh, Tenbinh, Maloai,Mamau,Makhoiluong,ManuocSX,Soluong, Dongianhap, Dongiaban,Thoigianbaohanh, Anh, Ghichu FROM DM_Binh_ga";
+            //sql = "SELECT Mabinh, Tenbinh, Maloai,Mamau,Makhoiluong,ManuocSX,Soluong, Dongianhap, Dongiaban,Thoigianbaohanh, Anh, Ghichu FROM DM_Binh_ga";
+            sql = "SELECT * FROM DM_Binh_ga";
             DataTable DM_Binh_ga = DAO.GetDataToTable(sql);
             GridViewBinhGas.DataSource = DM_Binh_ga;
             DAO.CloseConnection();
@@ -782,6 +453,11 @@ namespace hoa_don_nhap
         private void FrmDMBinhGa_Load(object sender, EventArgs e)
         {
             RefreshData();
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

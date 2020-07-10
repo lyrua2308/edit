@@ -143,7 +143,7 @@ namespace hoa_don_nhap
                 txtTenbinh.Text = "";
                 txtDongia.Text = "";
             }
-            // Khi chọn mã đĩa thì các thông tin về hàng hiện ra
+            // Khi chọn mã binh  thì các thông tin về hàng hiện ra
             str = "SELECT Tenbinh FROM DM_binh_ga WHERE Mabinh =N'" + cboMabinh.SelectedValue + "'";
             txtTenbinh.Text = DAO.GetFieldValues(str);
             str = "SELECT DonGianhap FROM DM_binh_ga WHERE Mabinh =N'" + cboMabinh.SelectedValue + "'";
@@ -284,7 +284,7 @@ namespace hoa_don_nhap
                 sql = "INSERT INTO hoa_don_nhap(SoHDN, MaNV, NgayNhap, MaNCC, TongTien) VALUES (N'" + txtSoHDN.Text.Trim() + "',N'" + cboManhanvien.SelectedValue + "',N'" +
                         DAO.ConvertDateTime(txtNgaynhap.Text.Trim()) + "',N'" +
                         cboMaNCC.SelectedValue + "'," + txtTongtien.Text + ")";
-                MessageBox.Show(sql);
+                
                DAO.RunSql(sql);
             
             }
@@ -324,30 +324,25 @@ namespace hoa_don_nhap
             }
             DAO.OpenConnection();
             sql = "INSERT INTO chi_tiet_hoa_don_nhap VALUES(N'" + txtSoHDN.Text.Trim() + "',N'" + cboMabinh.SelectedValue + "'," + txtSoluong.Text + "," + txtDongia.Text + "," + txtGiamgia.Text + "," + txtThanhtien.Text + ")";
-            MessageBox.Show(sql);
+            
             DAO.RunSql(sql);
             LoadDataGridView();
 
-            /*------------------------------ 
-             * 
-             * Cập nhật đơn giá nhập và đơn giá bán cho bảng 
-             * Lưu vào bảng kho đĩa giá nhập trung bình, trong đó:
-             * Giá nhập TB = (Giá cũ trong kho đĩa * Số lượng tồn kho + Giá nhập mới * số lượng mới)/(Số lượng tồn + Số lượng mới)
-             *
-             ------------------------------*/
+            
+            //cap nhat
 
             double dgnhap = Convert.ToDouble(txtDongia.Text); // đơn giá nhập
-            double giaNhapCu = Convert.ToDouble(DAO.GetFieldValues("SELECT DonGianhap FROM DM_Binh_ga WHERE mabinh = N'" + cboMabinh.SelectedValue + "'"));
+           
             sl = Convert.ToDouble(DAO.GetFieldValues("SELECT SoLuong FROM DM_binh_ga WHERE mabinh = N'" + cboMabinh.SelectedValue + "'"));
             double slmoi = Convert.ToDouble(txtSoluong.Text);
-            double giaNhapTB = (giaNhapCu * sl + dgnhap * slmoi) / (sl + slmoi);
+           
 
-            sql = "UPDATE DM_binh_ga SET DonGiaNhap=" + giaNhapTB + "WHERE Mabinh= N'" + cboMabinh.SelectedValue + "'";
+            sql = "UPDATE DM_binh_ga SET DonGiaNhap=" + dgnhap + "WHERE Mabinh= N'" + cboMabinh.SelectedValue + "'";
             DAO.RunSql(sql);
-            sql = "UPDATE DM_binh_ga SET DonGiaBan=" + giaNhapTB * 1.1 + "WHERE Mabinh= N'" + cboMabinh.SelectedValue + "'";
+            sql = "UPDATE DM_binh_ga SET DonGiaBan=" + dgnhap * 1.1 + "WHERE Mabinh= N'" + cboMabinh.SelectedValue + "'";
             DAO.RunSql(sql);
 
-            // Cập nhật lại số lượng ga vào bảng Kho đĩa
+            // Cập nhật lại số lượng ga vào bảng DM Binh ga
             SLcon = sl + slmoi;
             sql = "UPDATE DM_binh_ga  SET SoLuong =" + SLcon + " WHERE Mabinh= N'" + cboMabinh.SelectedValue + "'";
             DAO.RunSql(sql);
@@ -378,7 +373,7 @@ namespace hoa_don_nhap
                 DataTable DM_Binh_ga = DAO.GetDataToTable(sql);
                 for (int ga = 0; ga <= DM_Binh_ga.Rows.Count - 1; ga++)
                 {
-                    // Cập nhật lại số lượng cho các loại đĩa
+                    // Cập nhật lại số lượng cho các loại ga
                     sl = Convert.ToDouble(DAO.GetFieldValues("SELECT SoLuong FROM DM_Binh_ga WHERE Mabinh = N'" + DM_Binh_ga.Rows[ga][0].ToString() + "'"));
                     slxoa = Convert.ToDouble(DM_Binh_ga.Rows[ga][1].ToString());
                     slcon = sl - slxoa;
@@ -404,13 +399,7 @@ namespace hoa_don_nhap
             ResetValues();
         }
 
-        private void btnBoqua_Click(object sender, EventArgs e)
-        {
-            ResetValues();
-            txtNgaynhap.Text = "";
-            txtTenbinh.Text = "";
-            txtSoHDN.Enabled = false;
-        }
+      
 
         private void btnDong_Click(object sender, EventArgs e)
         {
@@ -424,7 +413,7 @@ namespace hoa_don_nhap
             Double thanhtienxoa, soluongxoa, sl, slcon, tong, tongmoi;
             if ((MessageBox.Show("Bạn có chắc chắn muốn xóa không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes))
             {
-                //Xóa sách và cập nhật lại số lượng đĩa
+                //Xóa sách và cập nhật lại số lượng ga
                 mabinhxoa = DataGridView_hdn.CurrentRow.Cells["Mabinh"].Value.ToString();
                 soluongxoa = Convert.ToDouble(DataGridView_hdn.CurrentRow.Cells["SoLuong"].Value.ToString());
                 thanhtienxoa = Convert.ToDouble(DataGridView_hdn.CurrentRow.Cells["Thanhtien"].Value.ToString());
@@ -464,18 +453,18 @@ namespace hoa_don_nhap
             exRange.Range["A1:Z300"].Font.Name = "Times new roman"; //Font chữ
             exRange.Range["A1:B3"].Font.Size = 10;
             exRange.Range["A1:B3"].Font.Bold = true;
-            exRange.Range["A1:B3"].Font.ColorIndex = 5; //Màu xanh da trời
-            exRange.Range["A1:A1"].ColumnWidth = 7;
-            exRange.Range["B1:B1"].ColumnWidth = 15;
+            exRange.Range["A1:B3"].Font.ColorIndex = 5; 
+            exRange.Range["A1:A1"].ColumnWidth = 10;
+            exRange.Range["B1:B1"].ColumnWidth = 17;
             exRange.Range["A1:B1"].MergeCells = true;
             exRange.Range["A1:B1"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
-            exRange.Range["A1:B1"].Value = "Cửa hàng bán ga";
+            exRange.Range["A1:B1"].Value = "Đại Lý Bán Ga nhóm 9";
             exRange.Range["A2:B2"].MergeCells = true;
             exRange.Range["A2:B2"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
-            exRange.Range["A2:B2"].Value = "Đội Cấn - Hà Nội";
+            exRange.Range["A2:B2"].Value = "Số 75 Thái Hà-Đống Đa-Hà Nội";
             exRange.Range["A3:B3"].MergeCells = true;
             exRange.Range["A3:B3"].HorizontalAlignment = COMExcel.XlHAlign.xlHAlignCenter;
-            exRange.Range["A3:B3"].Value = "Điện thoại: 01635612685";
+            exRange.Range["A3:B3"].Value = "Điện thoại: 0866162243";
             exRange.Range["C2:E2"].Font.Size = 16;
             exRange.Range["C2:E2"].Font.Bold = true;
             exRange.Range["C2:E2"].Font.ColorIndex = 3;
@@ -497,7 +486,7 @@ namespace hoa_don_nhap
             exRange.Range["C8:E8"].Value = tblThongtinHD.Rows[0][4].ToString();
             exRange.Range["B9:B9"].Value = "Điện thoại:";
             exRange.Range["C9:E9"].MergeCells = true;
-            exRange.Range["C9:E9"].Value = tblThongtinHD.Rows[0][5].ToString();
+            exRange.Range["C9:D9"].Value = tblThongtinHD.Rows[0][5].ToString();
             //Lấy thông tin các mặt hàng
             sql = "SELECT b.Tenbinh, a.Soluong, b.DonGiaNhap, a.Giamgia, a.ThanhTien " +
                   "FROM chi_tiet_hoa_don_nhap AS a , DM_binh_ga AS b WHERE a.SoHDN = N'" +
@@ -586,33 +575,16 @@ namespace hoa_don_nhap
                 "Hoa_don_nhap.MaNCC,Chi_tiet_hoa_don_nhap.Dongia,Chi_tiet_hoa_don_nhap.Soluong,Chi_tiet_hoa_don_nhap.Giamgia," +
                 "Chi_tiet_hoa_don_nhap.Thanhtien,manv,hoa_don_nhap.sohdn" +
             " from Chi_tiet_hoa_don_nhap join Hoa_don_nhap on Chi_tiet_hoa_don_nhap.SoHDN = Hoa_don_nhap.SoHDN join DM_Binh_ga ON DM_Binh_ga.Mabinh = Chi_tiet_hoa_don_nhap.Mabinh where 1=1 ";
-            if (txtSoHDN.Text != "")
-                sql = sql + " AND hoa_don_nhap.Sohdn Like N'%" + txtSoHDN.Text + "%'";
+         
             if (cboMabinh.Text != "")
                 sql = sql + " AND dm_binh_ga.Mabinh Like N'%" + cboMabinh.Text + "%'";
-            if (txtTenbinh.Text != "")
-                sql = sql + " AND Tenbinh Like N'%" + txtTenbinh.Text + "%'";
-            if (cboManhanvien.Text != "")
-                sql = sql + " AND MaNV Like N'%" + cboManhanvien.Text + "%'";
+            
             if (cboMaNCC.Text != "")
                 sql = sql + " AND Mancc Like N'%" + cboMaNCC.SelectedValue + "%'";
-            if (txtSoluong.Text != "")
-                sql = sql + " AND chi_tiet_hoa_don_nhap.Soluong Like N'%" +txtSoluong.Text + "%'";
+           
             if (txtNgaynhap.Text != "")
                 sql = sql + "AND CONVERT(VARCHAR(25), Ngaynhap, 126) Like N'%" + DAO.ConvertDateTime( txtNgaynhap.Text) + "%'";
-            if (txtDongia.Text != "")
-                sql = sql + " AND Dongia Like N'%" + txtDongia.Text + "%'";
-            if (txtGiamgia.Text != "")
-                sql = sql + " AND Giamgia Like N'%" + txtGiamgia.Text + "%'";
-            if (txtThanhtien.Text != "")
-                sql = sql + " AND thanhtien Like N'%" + txtThanhtien.Text + "%'";
-           
-                
-
-
-
-
-
+          
             DataTable DM_Binh_ga = DAO.GetDataToTable(sql);
 
             if (DM_Binh_ga.Rows.Count == 0)
@@ -626,31 +598,11 @@ namespace hoa_don_nhap
 
             }
             DAO.loatdata(sql, DataGridView_hdn);
-            //DataTable Chi_tiet_hoa_don_nhap = DAO.GetDataToTable(sql);
-           // Chi_tiet_hoa_don_nhap = DAO.GetDataToTable(sql);
-            // (Chi_tiet_hoa_don_nhap.Rows.Count == 0)
-//MessageBox.Show("Không có bản ghi thỏa mãn điều kiện!!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //else
-              //  MessageBox.Show("Có " + Chi_tiet_hoa_don_nhap.Rows.Count + " bản ghi thỏa mãn điều kiện!!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //DataGridView_hdn.DataSource = Chi_tiet_hoa_don_nhap;
-          
-           // ResetValues();
-
-            //DataTable Hoa_don_nhap = DAO.GetDataToTable(sql);
-            //Hoa_don_nhap = DAO.GetDataToTable(sql);
-            //if (Hoa_don_nhap.Rows.Count == 0)
-              //  MessageBox.Show("Không có bản ghi thỏa mãn điều kiện!!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-           // else
-              //p  MessageBox.Show("Có " + Hoa_don_nhap.Rows.Count + " bản ghi thỏa mãn điều kiện!!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
            
-            //DataGridView_hdn.DataSource = Hoa_don_nhap;
-           
-           //ResetValues();
-            //LoadDataGridView();
-
-
         }
         
+
+
 
     private void btnHienthi_Click(object sender, EventArgs e)
         {
@@ -671,7 +623,19 @@ namespace hoa_don_nhap
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            cboMabinh.Enabled = true;
+            cboMaNCC.Enabled = true;
+            txtNgaynhap.Enabled = true;
+            txtDiachi.Enabled = false;
+            txtDongia.Enabled = false;
+            txtGiamgia.Enabled = false;
+            txtSoHDN.Enabled = false;
+            txtSoluong.Enabled = false;
+            txtTenbinh.Enabled = false;
+            txtThanhtien.Enabled = false;
+            cboManhanvien.Enabled = false;
+            txtNgaynhap.Text = "";
+            
         }
 
         private void grbThongtinchung_Enter(object sender, EventArgs e)
@@ -680,6 +644,11 @@ namespace hoa_don_nhap
         }
 
         private void grbThongtinmathang_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtTongtien_TextChanged(object sender, EventArgs e)
         {
 
         }

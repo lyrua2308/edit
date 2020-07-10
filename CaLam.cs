@@ -30,17 +30,8 @@ namespace hoa_don_nhap
             string sql = "select * from Ca_lam";
             DAO.loatdata(sql, dataGridView1);
         }
-        private void frmCaLam_Load(object sender, EventArgs e)
-        {
-            loaddata();
-        }
-
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            textBoxmaca.Text = dataGridView1.CurrentRow.Cells["maca"].Value.ToString();
-            textBoxtenca.Text = dataGridView1.CurrentRow.Cells["tenca"].Value.ToString();
-            textBoxmaca.Enabled = false;
-        }
+       
+    
 
         private void buttonthem_Click(object sender, EventArgs e)
         {
@@ -104,7 +95,14 @@ namespace hoa_don_nhap
 
         private void CaLam_Load(object sender, EventArgs e)
         {
+            loaddata();
+        }
 
+        private void dataGridView1_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            textBoxmaca.Text = dataGridView1.CurrentRow.Cells["maca"].Value.ToString();
+            textBoxtenca.Text = dataGridView1.CurrentRow.Cells["tenca"].Value.ToString();
+            textBoxmaca.Enabled = false;
         }
     }
 }

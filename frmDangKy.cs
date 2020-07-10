@@ -50,5 +50,10 @@ namespace hoa_don_nhap
             MessageBox.Show("ban da dang ki tai khoan thanh cong");
 
         }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

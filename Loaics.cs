@@ -21,7 +21,7 @@ namespace hoa_don_nhap
 
         private void Loaics_Load(object sender, EventArgs e)
         {
-
+            LoadDataToGridview();
         }
         private void LoadDataToGridview()
         {

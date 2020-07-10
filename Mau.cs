@@ -22,7 +22,7 @@ namespace hoa_don_nhap
 
         private void Mau_Load(object sender, EventArgs e)
         {
-
+            LoadDataToGridview();
         }
         private void LoadDataToGridview()
         {
@@ -137,6 +137,11 @@ namespace hoa_don_nhap
             //xóa dữ liệu trong textbox
             txtMamau.Text = "";
             txtTenmau.Text = "";
-        }   
-}
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

@@ -28,15 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonthoat = new System.Windows.Forms.Button();
-            this.buttonxoa = new System.Windows.Forms.Button();
-            this.buttonsua = new System.Windows.Forms.Button();
-            this.buttonthem = new System.Windows.Forms.Button();
             this.diachi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sodienthoai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tenncc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mancc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.buttonluu = new System.Windows.Forms.Button();
             this.dataGridViewncc = new System.Windows.Forms.DataGridView();
             this.textBoxdiachi = new System.Windows.Forms.TextBox();
             this.textBoxsodienthoai = new System.Windows.Forms.TextBox();
@@ -46,58 +41,22 @@
             this.labelsodienthoai = new System.Windows.Forms.Label();
             this.labeltennhacungcap = new System.Windows.Forms.Label();
             this.labelmanhacungcap = new System.Windows.Forms.Label();
-            this.labelncc = new System.Windows.Forms.Label();
+            this.buttonthoat = new System.Windows.Forms.Button();
+            this.buttonxoa = new System.Windows.Forms.Button();
+            this.buttonsua = new System.Windows.Forms.Button();
+            this.buttonthem = new System.Windows.Forms.Button();
+            this.buttonluu = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewncc)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // buttonthoat
-            // 
-            this.buttonthoat.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.buttonthoat.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.buttonthoat.Location = new System.Drawing.Point(711, 433);
-            this.buttonthoat.Name = "buttonthoat";
-            this.buttonthoat.Size = new System.Drawing.Size(95, 39);
-            this.buttonthoat.TabIndex = 38;
-            this.buttonthoat.Text = "Thoát";
-            this.buttonthoat.UseVisualStyleBackColor = false;
-            // 
-            // buttonxoa
-            // 
-            this.buttonxoa.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.buttonxoa.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.buttonxoa.Location = new System.Drawing.Point(398, 433);
-            this.buttonxoa.Name = "buttonxoa";
-            this.buttonxoa.Size = new System.Drawing.Size(91, 39);
-            this.buttonxoa.TabIndex = 36;
-            this.buttonxoa.Text = "Xóa";
-            this.buttonxoa.UseVisualStyleBackColor = false;
-            // 
-            // buttonsua
-            // 
-            this.buttonsua.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.buttonsua.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.buttonsua.Location = new System.Drawing.Point(254, 433);
-            this.buttonsua.Name = "buttonsua";
-            this.buttonsua.Size = new System.Drawing.Size(81, 39);
-            this.buttonsua.TabIndex = 35;
-            this.buttonsua.Text = "Sửa";
-            this.buttonsua.UseVisualStyleBackColor = false;
-            // 
-            // buttonthem
-            // 
-            this.buttonthem.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.buttonthem.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.buttonthem.Location = new System.Drawing.Point(112, 433);
-            this.buttonthem.Name = "buttonthem";
-            this.buttonthem.Size = new System.Drawing.Size(92, 39);
-            this.buttonthem.TabIndex = 34;
-            this.buttonthem.Text = "Thêm";
-            this.buttonthem.UseVisualStyleBackColor = false;
             // 
             // diachi
             // 
             this.diachi.DataPropertyName = "diachi";
             this.diachi.HeaderText = "Địa Chỉ";
+            this.diachi.MinimumWidth = 6;
             this.diachi.Name = "diachi";
             this.diachi.Width = 125;
             // 
@@ -105,6 +64,7 @@
             // 
             this.sodienthoai.DataPropertyName = "dienthoai";
             this.sodienthoai.HeaderText = "Số điện thoại";
+            this.sodienthoai.MinimumWidth = 6;
             this.sodienthoai.Name = "sodienthoai";
             this.sodienthoai.Width = 125;
             // 
@@ -112,6 +72,7 @@
             // 
             this.tenncc.DataPropertyName = "tenncc";
             this.tenncc.HeaderText = "Tên nhà cung cấp";
+            this.tenncc.MinimumWidth = 6;
             this.tenncc.Name = "tenncc";
             this.tenncc.Width = 125;
             // 
@@ -119,19 +80,9 @@
             // 
             this.mancc.DataPropertyName = "mancc";
             this.mancc.HeaderText = "Mã nhà cung cấp";
+            this.mancc.MinimumWidth = 6;
             this.mancc.Name = "mancc";
             this.mancc.Width = 125;
-            // 
-            // buttonluu
-            // 
-            this.buttonluu.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.buttonluu.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.buttonluu.Location = new System.Drawing.Point(564, 433);
-            this.buttonluu.Name = "buttonluu";
-            this.buttonluu.Size = new System.Drawing.Size(88, 39);
-            this.buttonluu.TabIndex = 37;
-            this.buttonluu.Text = "Lưu";
-            this.buttonluu.UseVisualStyleBackColor = false;
             // 
             // dataGridViewncc
             // 
@@ -146,6 +97,7 @@
             this.dataGridViewncc.RowHeadersWidth = 51;
             this.dataGridViewncc.Size = new System.Drawing.Size(443, 150);
             this.dataGridViewncc.TabIndex = 33;
+            this.dataGridViewncc.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewncc_CellClick_1);
             // 
             // textBoxdiachi
             // 
@@ -162,6 +114,7 @@
             this.textBoxsodienthoai.Name = "textBoxsodienthoai";
             this.textBoxsodienthoai.Size = new System.Drawing.Size(161, 30);
             this.textBoxsodienthoai.TabIndex = 31;
+            this.textBoxsodienthoai.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxsodienthoai_KeyPress);
             // 
             // textboxnhacungcap
             // 
@@ -219,22 +172,108 @@
             this.labelmanhacungcap.TabIndex = 25;
             this.labelmanhacungcap.Text = "Mã Nhà Cung Cấp";
             // 
-            // labelncc
+            // buttonthoat
             // 
-            this.labelncc.AutoSize = true;
-            this.labelncc.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.labelncc.ForeColor = System.Drawing.Color.Red;
-            this.labelncc.Location = new System.Drawing.Point(383, 62);
-            this.labelncc.Name = "labelncc";
-            this.labelncc.Size = new System.Drawing.Size(242, 29);
-            this.labelncc.TabIndex = 24;
-            this.labelncc.Text = "Quản lý nhà cung cấp";
+            this.buttonthoat.BackColor = System.Drawing.SystemColors.Window;
+            this.buttonthoat.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonthoat.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.buttonthoat.Image = global::hoa_don_nhap.Properties.Resources.close__1_;
+            this.buttonthoat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonthoat.Location = new System.Drawing.Point(731, 446);
+            this.buttonthoat.Name = "buttonthoat";
+            this.buttonthoat.Size = new System.Drawing.Size(117, 46);
+            this.buttonthoat.TabIndex = 38;
+            this.buttonthoat.Text = "Thoát";
+            this.buttonthoat.UseVisualStyleBackColor = false;
+            this.buttonthoat.Click += new System.EventHandler(this.buttonthoat_Click_1);
+            // 
+            // buttonxoa
+            // 
+            this.buttonxoa.BackColor = System.Drawing.SystemColors.Window;
+            this.buttonxoa.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonxoa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.buttonxoa.Image = global::hoa_don_nhap.Properties.Resources.delete__1_;
+            this.buttonxoa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonxoa.Location = new System.Drawing.Point(401, 444);
+            this.buttonxoa.Name = "buttonxoa";
+            this.buttonxoa.Size = new System.Drawing.Size(112, 46);
+            this.buttonxoa.TabIndex = 36;
+            this.buttonxoa.Text = "Xóa";
+            this.buttonxoa.UseVisualStyleBackColor = false;
+            this.buttonxoa.Click += new System.EventHandler(this.buttonxoa_Click_1);
+            // 
+            // buttonsua
+            // 
+            this.buttonsua.BackColor = System.Drawing.SystemColors.Window;
+            this.buttonsua.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonsua.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.buttonsua.Image = global::hoa_don_nhap.Properties.Resources.refresh__1_;
+            this.buttonsua.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonsua.Location = new System.Drawing.Point(241, 444);
+            this.buttonsua.Name = "buttonsua";
+            this.buttonsua.Size = new System.Drawing.Size(113, 46);
+            this.buttonsua.TabIndex = 35;
+            this.buttonsua.Text = "Sửa";
+            this.buttonsua.UseVisualStyleBackColor = false;
+            this.buttonsua.Click += new System.EventHandler(this.buttonsua_Click_1);
+            // 
+            // buttonthem
+            // 
+            this.buttonthem.BackColor = System.Drawing.SystemColors.Window;
+            this.buttonthem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonthem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.buttonthem.Image = global::hoa_don_nhap.Properties.Resources.writing;
+            this.buttonthem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonthem.Location = new System.Drawing.Point(71, 444);
+            this.buttonthem.Name = "buttonthem";
+            this.buttonthem.Size = new System.Drawing.Size(117, 46);
+            this.buttonthem.TabIndex = 34;
+            this.buttonthem.Text = "Thêm";
+            this.buttonthem.UseVisualStyleBackColor = false;
+            this.buttonthem.Click += new System.EventHandler(this.buttonthem_Click_1);
+            // 
+            // buttonluu
+            // 
+            this.buttonluu.BackColor = System.Drawing.SystemColors.Window;
+            this.buttonluu.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonluu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.buttonluu.Image = global::hoa_don_nhap.Properties.Resources.save;
+            this.buttonluu.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonluu.Location = new System.Drawing.Point(566, 446);
+            this.buttonluu.Name = "buttonluu";
+            this.buttonluu.Size = new System.Drawing.Size(105, 44);
+            this.buttonluu.TabIndex = 37;
+            this.buttonluu.Text = "Lưu";
+            this.buttonluu.UseVisualStyleBackColor = false;
+            this.buttonluu.Click += new System.EventHandler(this.buttonluu_Click_1);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Teal;
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Location = new System.Drawing.Point(-54, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1048, 58);
+            this.panel1.TabIndex = 48;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Arial", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(329, 15);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(362, 33);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "QUẢN LÝ NHÀ CUNG CẤP";
             // 
             // NhaCungCap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(940, 526);
+            this.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.ClientSize = new System.Drawing.Size(943, 526);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.buttonthoat);
             this.Controls.Add(this.buttonxoa);
             this.Controls.Add(this.buttonsua);
@@ -249,11 +288,12 @@
             this.Controls.Add(this.labelsodienthoai);
             this.Controls.Add(this.labeltennhacungcap);
             this.Controls.Add(this.labelmanhacungcap);
-            this.Controls.Add(this.labelncc);
             this.Name = "NhaCungCap";
             this.Text = "NhaCungCap";
             this.Load += new System.EventHandler(this.NhaCungCap_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewncc)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -279,6 +319,7 @@
         private System.Windows.Forms.Label labelsodienthoai;
         private System.Windows.Forms.Label labeltennhacungcap;
         private System.Windows.Forms.Label labelmanhacungcap;
-        private System.Windows.Forms.Label labelncc;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label3;
     }
 }

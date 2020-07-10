@@ -28,7 +28,27 @@ namespace hoa_don_nhap
             DAO.loatdata(sql, dataGridViewncc);
         }
 
-        private void dataGridViewncc_CellClick(object sender, DataGridViewCellEventArgs e)
+        
+      
+        
+
+        
+
+      
+
+        private void buttonthoat_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+     
+
+        private void buttonthoat_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void dataGridViewncc_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             textBoxmanhacungcap.Text = dataGridViewncc.CurrentRow.Cells["mancc"].Value.ToString();
             textboxnhacungcap.Text = dataGridViewncc.CurrentRow.Cells["tenncc"].Value.ToString();
@@ -37,7 +57,7 @@ namespace hoa_don_nhap
             textBoxmanhacungcap.Enabled = false;
         }
 
-        private void buttonthem_Click(object sender, EventArgs e)
+        private void buttonthem_Click_1(object sender, EventArgs e)
         {
             textBoxmanhacungcap.Enabled = true;
             textBoxmanhacungcap.Text = "";
@@ -46,7 +66,7 @@ namespace hoa_don_nhap
             textBoxdiachi.Text = "";
         }
 
-        private void buttonsua_Click(object sender, EventArgs e)
+        private void buttonsua_Click_1(object sender, EventArgs e)
         {
             string sql = "update nha_cc set tenncc=N'" + textboxnhacungcap.Text + "',diachi=N'" + textBoxdiachi.Text + "',dienthoai='"
                 + textBoxsodienthoai.Text + "' where mancc=N'" + textBoxmanhacungcap.Text + "'";
@@ -54,20 +74,17 @@ namespace hoa_don_nhap
             loaddata();
         }
 
-        private void buttonxoa_Click(object sender, EventArgs e)
+        private void buttonxoa_Click_1(object sender, EventArgs e)
         {
+
             string sql = "delete from nha_cc where mancc=N'" + textBoxmanhacungcap.Text + "'";
             DAO.RunSqlDel(sql);
             loaddata();
         }
 
-        private void buttonthoat_Click(object sender, EventArgs e)
+        private void buttonluu_Click_1(object sender, EventArgs e)
         {
-            this.Close();
-        }
 
-        private void buttonluu_Click(object sender, EventArgs e)
-        {
             if (textBoxmanhacungcap.Text == "")
             {
                 MessageBox.Show("bạn chưa nhập mã nhà cung cấp");
@@ -113,7 +130,13 @@ namespace hoa_don_nhap
 
                 DAO.CloseConnection();
             }
+        }
 
+        private void textBoxsodienthoai_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (((e.KeyChar >= '0') && (e.KeyChar <= '9')) || (Convert.ToInt32(e.KeyChar) == 8))
+                e.Handled = false;
+            else e.Handled = true;
         }
     }
 }

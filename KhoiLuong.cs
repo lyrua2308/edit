@@ -101,5 +101,15 @@ namespace hoa_don_nhap
 
             this.Close();
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gridviewKhoiluong_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtMakl.Text = gridviewKhoiluong.CurrentRow.Cells["makhoiluong"].Value.ToString();
+        }
     }
 }
